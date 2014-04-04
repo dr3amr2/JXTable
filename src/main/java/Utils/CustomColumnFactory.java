@@ -1,4 +1,4 @@
-/*
+package utils;/*
  * Created on 29.02.2008
  *
  */

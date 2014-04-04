@@ -1,7 +1,8 @@
-/**
+package panels; /**
 * Created by dnguyen on 3/24/14.
 */
 
+import utils.CustomColumnFactory;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.Bindings;
