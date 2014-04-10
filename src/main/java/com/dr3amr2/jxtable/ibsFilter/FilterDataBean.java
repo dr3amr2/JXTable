@@ -1,4 +1,4 @@
-package com.dr3amr2.jxtable;
+package com.dr3amr2.jxtable.ibsFilter;
 
 import java.net.URI;
 import java.util.ArrayList;

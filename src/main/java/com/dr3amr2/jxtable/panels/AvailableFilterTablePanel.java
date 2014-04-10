@@ -2,33 +2,26 @@ package com.dr3amr2.jxtable.panels; /**
 * Created by dnguyen on 3/24/14.
 */
 
-import com.dr3amr2.jxtable.DataFiltering;
-import com.dr3amr2.jxtable.FilterDataLoader;
-import com.dr3amr2.jxtable.FilterRendering;
-import com.dr3amr2.jxtable.Stacker;
-import com.dr3amr2.jxtable.model.FilterTableModel;
-import com.dr3amr2.jxtable.model.SampleTableModel;
+import com.dr3amr2.jxtable.ibsFilter.DataFiltering;
+import com.dr3amr2.jxtable.ibsFilter.FilterDataLoader;
+import com.dr3amr2.jxtable.ibsFilter.FilterRendering;
+import com.dr3amr2.jxtable.utils.Stacker;
+import com.dr3amr2.jxtable.ibsFilter.FilterTableModel;
 import com.dr3amr2.jxtable.utils.CustomColumnFactory;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.Bindings;
-import org.jdesktop.swingx.JXFrame;
 import org.jdesktop.swingx.JXStatusBar;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTableHeader;
-import org.jdesktop.swingx.decorator.ColorHighlighter;
-import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.HighlighterFactory;
-import org.jdesktop.swingx.sort.RowFilters;
 
 import javax.swing.*;
 import javax.swing.SwingWorker.StateValue;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 import java.awt.*;
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 import static org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ;

@@ -1,6 +1,6 @@
-package com.dr3amr2.jxtable;
+package com.dr3amr2.jxtable.ibsFilter;
 
-import com.dr3amr2.jxtable.model.FilterTableModel;
+import com.dr3amr2.jxtable.utils.Stacker;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;

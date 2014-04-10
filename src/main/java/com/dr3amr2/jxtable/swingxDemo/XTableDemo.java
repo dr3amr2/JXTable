@@ -31,7 +31,7 @@
 
 package com.dr3amr2.jxtable.swingxDemo;
 
-import com.dr3amr2.jxtable.Stacker;
+import com.dr3amr2.jxtable.utils.Stacker;
 import com.dr3amr2.jxtable.utils.CustomColumnFactory;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;

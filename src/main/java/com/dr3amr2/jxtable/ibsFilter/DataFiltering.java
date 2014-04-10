@@ -1,7 +1,6 @@
-package com.dr3amr2.jxtable; /**
+package com.dr3amr2.jxtable.ibsFilter; /**
 * Created by dnguyen on 3/24/14.
 */
-import com.dr3amr2.jxtable.model.FilterTableModel;
 import org.jdesktop.beans.AbstractBean;
 import org.jdesktop.swingx.JXTable;
 

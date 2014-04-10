@@ -1,4 +1,4 @@
-package com.dr3amr2.jxtable;/*
+package com.dr3amr2.jxtable.ibsFilter;/*
  * Copyright 2007-2008 Sun Microsystems, Inc.  All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without

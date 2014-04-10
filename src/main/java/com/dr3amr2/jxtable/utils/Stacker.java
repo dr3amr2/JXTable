@@ -1,4 +1,4 @@
-package com.dr3amr2.jxtable; /**
+package com.dr3amr2.jxtable.utils; /**
  * Created by dnguyen on 3/24/14.
  */
 

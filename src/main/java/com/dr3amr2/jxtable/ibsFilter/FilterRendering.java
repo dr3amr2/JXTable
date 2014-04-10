@@ -2,9 +2,8 @@
 * Created on 08.04.2008
 *
 */
-package com.dr3amr2.jxtable;
+package com.dr3amr2.jxtable.ibsFilter;
 
-import com.dr3amr2.jxtable.model.FilterTableModel;
 import com.dr3amr2.jxtable.utils.CustomColumnFactory;
 import com.dr3amr2.jxtable.utils.ImageUtils;
 import org.jdesktop.swingx.decorator.*;
