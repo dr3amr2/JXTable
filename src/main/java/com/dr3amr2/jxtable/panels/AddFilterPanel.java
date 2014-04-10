@@ -1,4 +1,4 @@
-package panels;/*
+package com.dr3amr2.jxtable.panels;/*
  * Created by JFormDesigner on Mon Mar 24 12:58:44 MDT 2014
  */
 

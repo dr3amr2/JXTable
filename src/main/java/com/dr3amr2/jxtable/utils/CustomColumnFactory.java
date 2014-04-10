@@ -1,4 +1,4 @@
-package utils;/*
+package com.dr3amr2.jxtable.utils;/*
  * Created on 29.02.2008
  *
  */

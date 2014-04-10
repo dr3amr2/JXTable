@@ -1,3 +1,5 @@
+package com.dr3amr2.jxtable;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;

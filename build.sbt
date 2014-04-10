@@ -15,3 +15,5 @@ libraryDependencies += "it.tidalwave.betterbeansbinding" % "betterbeansbinding-s
 libraryDependencies += "net.java.dev.timingframework" % "timingframework" % "1.0"
 
 libraryDependencies += "jgoodies" % "forms" % "1.0.5"
+
+libraryDependencies += "log4j" % "log4j" % "1.2.17"

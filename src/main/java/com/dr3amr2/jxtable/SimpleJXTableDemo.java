@@ -1,4 +1,4 @@
-/**
+package com.dr3amr2.jxtable; /**
  * Created by dnguyen on 3/25/14.
  */
 /*

@@ -1,8 +1,9 @@
-package panels; /**
+package com.dr3amr2.jxtable.panels; /**
 * Created by dnguyen on 3/24/14.
 */
 
-import utils.CustomColumnFactory;
+import com.dr3amr2.jxtable.*;
+import com.dr3amr2.jxtable.utils.CustomColumnFactory;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.Bindings;

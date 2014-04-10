@@ -32,7 +32,7 @@
 //    //<snip> JXTable column properties
 //    // Note: the custom column factory is a feature enhanced factory
 //    // which allows column configuration based on column identifier
-//    public static void configureColumnFactory(utils.CustomColumnFactory factory,
+//    public static void configureColumnFactory(CustomColumnFactory factory,
 //            Class<?> resourceBase) {
 //        // set location to load resources from
 //        factory.setBaseClass(resourceBase);
