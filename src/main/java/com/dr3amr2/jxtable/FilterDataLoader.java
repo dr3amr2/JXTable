@@ -1,5 +1,7 @@
 package com.dr3amr2.jxtable;
 
+import com.dr3amr2.jxtable.model.FilterTableModel;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;

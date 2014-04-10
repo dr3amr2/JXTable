@@ -14,6 +14,7 @@ public class FilterDataBean {
     private String description;
     private String user;
     private String filter;
+    private boolean isFilterOn;
     private final ArrayList<String> filters = new ArrayList<String>();
 
     /**
@@ -59,5 +60,11 @@ public class FilterDataBean {
         return filters;
     }
 
+    public boolean isFilterOn() {
+        return isFilterOn;
+    }
 
+    public void setFilterOn(boolean isFilterOn) {
+        this.isFilterOn = isFilterOn;
+    }
 }

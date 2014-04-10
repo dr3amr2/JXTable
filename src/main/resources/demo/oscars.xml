@@ -12,6 +12,12 @@
         <user>btc</user>
         <filter>blah blah ablah</filter>
     </test>
+    <test>
+        <name>Dogecoin</name>
+        <description>Shibe this Filter</description>
+        <user>DOGE</user>
+        <filter>One Doge is One Doge</filter>
+    </test>
 
     <actor year="1928">
         <won>

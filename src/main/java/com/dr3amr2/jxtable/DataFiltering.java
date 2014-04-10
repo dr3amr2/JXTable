@@ -1,18 +1,20 @@
 package com.dr3amr2.jxtable; /**
 * Created by dnguyen on 3/24/14.
 */
+import com.dr3amr2.jxtable.model.FilterTableModel;
 import org.jdesktop.beans.AbstractBean;
 import org.jdesktop.swingx.JXTable;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 
 public class DataFiltering extends AbstractBean {
-    private RowFilter<Object, Object> winnerFilter;
-    private RowFilter<Object, Object> searchFilter;
+    private RowFilter<TableModel, Integer> winnerFilter;
+    private RowFilter<TableModel, Integer> searchFilter;
 
     private String filterString;
     private boolean showOnlyWinners = false;
@@ -90,46 +92,46 @@ public class DataFiltering extends AbstractBean {
         // <snip> Filter control
         // set the filters to the table
         if ((searchFilter != null) && (winnerFilter != null)) {
-            List<RowFilter<Object, Object>> filters =
-                    new ArrayList<RowFilter<Object, Object>>(2);
+            List<RowFilter<TableModel, Integer>> filters =
+                    new ArrayList<RowFilter<TableModel, Integer>>(2);
             filters.add(winnerFilter);
             filters.add(searchFilter);
-            RowFilter<FilterTableModel, Integer> comboFilter = RowFilter.andFilter(filters);
+            RowFilter<TableModel, Integer> comboFilter = RowFilter.andFilter(filters);
             filterTable.setRowFilter(comboFilter);
         } else {
             if (searchFilter != null) {
 
-//                filterTable.setRowFilter(searchFilter);
+                filterTable.setRowFilter(searchFilter);
             } else {
-//                filterTable.setRowFilter(winnerFilter);
+                filterTable.setRowFilter(winnerFilter);
             }
         }
         //        </snip>
     }
 
 
-//    private RowFilter<Object, Object> createWinnerFilter() {
-//        return new RowFilter<Object, Object>() {
-//            @Override
-//            public boolean include(Entry<? extends Object, ? extends Object> entry) {
-//                FilterTableModel oscarModel = (FilterTableModel) entry.getModel();
-//                FilterDataBean candidate = oscarModel.getCandidate(((Integer) entry.getIdentifier()).intValue());
-//                if (candidate.isWinner()) {
-//                    // Returning true indicates this row should be shown.
-//                    return true;
-//                }
-//                // loser
-//                return false;
-//            }
-//        };
-//    }
+    private RowFilter<TableModel, Integer> createWinnerFilter() {
+        return new RowFilter<TableModel, Integer>() {
+            @Override
+            public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
+                FilterTableModel oscarModel = (FilterTableModel) entry.getModel();
+                FilterDataBean candidate = oscarModel.getCandidate(((Integer) entry.getIdentifier()).intValue());
+                if (candidate.isFilterOn()) {
+                    // Returning true indicates this row should be shown.
+                    return true;
+                }
+                // loser
+                return false;
+            }
+        };
+    }
 
     // <snip> Filter control
     // create and return a custom RowFilter specialized on FilterDataBean
-    private RowFilter<Object, Object> createSearchFilter(final String filterString) {
-        return new RowFilter<Object, Object>() {
+    private RowFilter<TableModel, Integer> createSearchFilter(final String filterString) {
+        return new RowFilter<TableModel, Integer>() {
             @Override
-            public boolean include(Entry<? extends Object, ? extends Object> entry) {
+            public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
                 FilterTableModel oscarModel = (FilterTableModel) entry.getModel();
                 FilterDataBean candidate = oscarModel.getCandidate(((Integer) entry.getIdentifier()).intValue());
                 boolean matches = false;
@@ -138,11 +140,11 @@ public class DataFiltering extends AbstractBean {
                 // TODO Implement to filter against all columns
                 String movie = candidate.getDescription();
                 if (movie != null) {
-                    if (movie.startsWith("The ")) {
-                        movie = movie.replace("The ", "");
-                    } else if (movie.startsWith("A ")) {
-                        movie = movie.replace("A ", "");
-                    }
+//                    if (movie.startsWith("The ")) {
+//                        movie = movie.replace("The ", "");
+//                    } else if (movie.startsWith("A ")) {
+//                        movie = movie.replace("A ", "");
+//                    }
                     // Returning true indicates this row should be shown.
                     matches = p.matcher(movie).matches();
                 }

@@ -1,6 +1,8 @@
-package com.dr3amr2.jxtable; /**
+package com.dr3amr2.jxtable.model; /**
  * Created by dnguyen on 3/24/14.
  */
+
+import com.dr3amr2.jxtable.FilterDataBean;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -17,10 +19,23 @@ public class FilterTableModel extends AbstractTableModel {
     public static final int DESCRIPTION_COLUMN = 1;
     public static final int USER_COLUMN = 2;
     public static final int FILTER_COLUMN = 3;
-    public static final int COLUMN_COUNT = 4;
+    public static final int FILTER_ON_COLUMN = 4;
+    public static final int COLUMN_COUNT = 5;
 
-    private static final String[] columnIds = {"name", "description", "user",
-            "filter"};
+    public static final String name_ID = "Name";
+    public static final String description_ID = "Description";
+    public static final String user_ID = "User";
+    public static final String filter_ID = "Filter";
+    public static final String filter_on_ID = "Filter";
+
+
+    private static final String[] columnIds = {
+            name_ID,
+            description_ID,
+            user_ID,
+            filter_ID,
+            filter_on_ID
+    };
 
     @Override
     public String getColumnName(int column) {
@@ -60,7 +75,6 @@ public class FilterTableModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int column) {
-//        FilterDataBean filterDataBean = filterList.get(row);
         if (row >= getRowCount()) {
             return new Object();
         }
@@ -71,6 +85,8 @@ public class FilterTableModel extends AbstractTableModel {
                 return getCandidate(row).getDescription();
             case FILTER_COLUMN:
                 return getCandidate(row).getFilter();
+            case FILTER_ON_COLUMN:
+                return getCandidate(row).isFilterOn() ? Boolean.TRUE : Boolean.FALSE;
             case USER_COLUMN:
                 return getCandidate(row).getUser();
         }

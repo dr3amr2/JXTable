@@ -2,7 +2,12 @@ package com.dr3amr2.jxtable.panels; /**
 * Created by dnguyen on 3/24/14.
 */
 
-import com.dr3amr2.jxtable.*;
+import com.dr3amr2.jxtable.DataFiltering;
+import com.dr3amr2.jxtable.FilterDataLoader;
+import com.dr3amr2.jxtable.FilterRendering;
+import com.dr3amr2.jxtable.Stacker;
+import com.dr3amr2.jxtable.model.FilterTableModel;
+import com.dr3amr2.jxtable.model.SampleTableModel;
 import com.dr3amr2.jxtable.utils.CustomColumnFactory;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
@@ -69,7 +74,7 @@ public class AvailableFilterTablePanel extends JPanel {
 
         // create and configure a custom column factory
         CustomColumnFactory factory = new CustomColumnFactory();
-        //  OscarRendering.configureColumnFactory(factory, getClass());
+        FilterRendering.configureColumnFactory(factory, getClass());
 
         // set the factory before setting the table model
         filterTable.setColumnFactory(factory);
@@ -80,14 +85,13 @@ public class AvailableFilterTablePanel extends JPanel {
      */
     protected void bind() {
 
-        //<snip> JXTable data properties
+        //  JXTable data properties
         filterModel = new FilterTableModel();
         // set the table model after setting the factory
         filterTable.setModel(filterModel);
-        //        </snip>
 
-        // <snip> Filter control
-        // create the controller
+        //  Filter control
+        //      create the controller
         filterController = new DataFiltering(filterTable);
         // bind controller properties to input components
         BindingGroup filterGroup = new BindingGroup();
@@ -106,18 +110,22 @@ public class AvailableFilterTablePanel extends JPanel {
                 filterController, BeanProperty.create("filterString"),
                 this, BeanProperty.create("statusContent")));
         filterGroup.bind();
-        //        </snip>
+
         filterModel.addTableModelListener(new TableModelListener() {
             public void tableChanged(TableModelEvent e) {
                 updateStatusBar();
             }
         });
 
-        //<snip> JXTable column properties
-        // some display properties can be configured only after the model has been set, here:
-        // configure the view sequence of columns to be different from the model
-        filterTable.setColumnSequence(new Object[]{"name", "description", "user", "filter"});
-        // </snip>
+        //  JXTable column properties
+        //      some display properties can be configured only after the model has been set, here:
+        //      configure the view sequence of columns to be different from the model
+        filterTable.setColumnSequence(new Object[]{
+                FilterTableModel.name_ID,
+                FilterTableModel.description_ID,
+                FilterTableModel.user_ID,
+                FilterTableModel.filter_ID
+        });
     }
 
     /**
@@ -135,7 +143,6 @@ public class AvailableFilterTablePanel extends JPanel {
     protected void updateStatusBar() {
         tableStatus.setName(filterController.isFilteringByString()
                 ? "searchCountLabel" : "rowCountLabel");
-//        DemoUtils.injectResources(this, tableStatus);
         tableRows.setText("" + filterTable.getRowCount());
     }
 
@@ -174,16 +181,15 @@ public class AvailableFilterTablePanel extends JPanel {
         statusBarLeft.remove(actionStatus);
         revalidate();
         repaint();
-        //        </snip>
     }
 
-    //<Use SwingWorker to asynchronously load the data
-    // specialized on FilterDataBean
+    //  Use SwingWorker to asynchronously load the data
+    //      specialized on FilterDataBean
 
 
     //------------------ init ui
-    //<snip> JXTable display properties
-    // center column header text
+    //  JXTable display properties
+    //      center column header text
     private JXTable createJXTable() {
         JXTable table = new JXTable() {
 
@@ -200,8 +206,6 @@ public class AvailableFilterTablePanel extends JPanel {
 
                         }
                     }
-                    //                    </snip>
-
                 };
             }
 
@@ -220,120 +224,9 @@ public class AvailableFilterTablePanel extends JPanel {
 
         scrollPane = new JScrollPane(filterTable);
         dataPanel = new Stacker(scrollPane);
-        add(scrollPane, BorderLayout.CENTER);
-
-        // Sample Table Model
-        //        JXTable jxTable = initSampleJXTable();
-        //        configureSampleJXTable(jxTable);
-        //        JScrollPane sampleScrollPane = new JScrollPane(jxTable);
-        //        add(sampleScrollPane, BorderLayout.CENTER);
+        add(dataPanel, BorderLayout.CENTER);
 
         add(createStatusBar(), BorderLayout.SOUTH);
-    }
-
-
-
-    /** Initialize our JXTable; this is standard stuff, just as with JTable */
-    private JXTable initSampleJXTable() {
-        // boilerplate table-setup; this would be the same for a JTable
-        JXTable table = new JXTable();
-
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        // if we would want a per-table ColumnFactory we would have
-        // to set it here, before setting the model
-        // table.setColumnFactory(myVerySpecialColumnFactory);
-
-        // Using Sample model
-        SampleTableModel model = new SampleTableModel();
-        table.setModel(model);
-        model.loadData();
-
-
-
-        return table;
-    }
-
-    private void configureSampleJXTable(JXTable jxTable) {
-        // set the number of visible rows
-        jxTable.setVisibleRowCount(30);
-        // set the number of visible columns
-        jxTable.setVisibleColumnCount(8);
-        // This turns horizontal scrolling on or off. If the table is too large for the scrollpane,
-        // and horizontal scrolling is off, columns will be resized to fit within the pane, which can
-        // cause them to be unreadable. Setting this flag causes the table to be scrollable right to left.
-        jxTable.setHorizontalScrollEnabled(true);
-
-        // This shows the column control on the right-hand of the header.
-        // All there is to it--users can now select which columns to view
-        jxTable.setColumnControlVisible(true);
-
-        // our data is pulling in too many columns by default, so let's hide some of them
-        // column visibility is a property of the TableColumnExt class; we can look up a
-        // TCE using a column's display name or its index
-        jxTable.getColumnExt("LATITUDE").setVisible(false);
-        jxTable.getColumnExt("LONGITUDE").setVisible(false);
-        jxTable.getColumnExt("DEWPOINT").setVisible(false);
-        jxTable.getColumnExt("VISIBILITY").setVisible(false);
-        jxTable.getColumnExt("WIND_SPEED").setVisible(false);
-        jxTable.getColumnExt("GUST_SPEED").setVisible(false);
-        jxTable.getColumnExt("VISIBILITY_QUAL").setVisible(false);
-        jxTable.getColumnExt("WIND_DIR").setVisible(false);
-        jxTable.getColumnExt("WIND_DEG").setVisible(false);
-        jxTable.getColumnExt("REGION").setVisible(false);
-
-        // we can changed our mind
-        jxTable.getColumnExt("LATITUDE").setVisible(true);
-
-        // Sorting by clicking on column headers is on by default. However, the comparison
-        // between rows uses a default compare on the column's type, and elevations
-        // are not sorting how we want.
-        //
-        // We will override the Comparator assigned to the TableColumnExt instance assigned
-        // to the elevation column. TableColumnExt has a property comparator will be used
-        // by JXTable's sort methods.
-        // By using a custom Comparator we can control how sorting in any column takes place
-        Comparator numberComparator = new Comparator() {
-            public int compare(Object o1, Object o2) {
-                Double d1 = Double.valueOf(o1 == null ? "0" : (String) o1);
-                Double d2 = Double.valueOf(o2 == null ? "0" : (String) o2);
-                return d1.compareTo(d2);
-            }
-        };
-
-        // comparators are good for special situations where the default comparator doesn't
-        // understand our data.
-
-        // setting the custom comparator
-//        jxTable.getColumnExt("ELEVATION").setComparator(numberComparator);
-//        jxTable.getColumnExt("TEMPERATURE").setComparator(numberComparator);
-
-        // We'll add a highlighter to offset different row numbers
-        // Note the setHighlighters() takes an array parameter; you can chain these together.
-        jxTable.setHighlighters(HighlighterFactory.createSimpleStriping());
-
-        // ...oops! we forgot one
-        jxTable.addHighlighter(new ColorHighlighter(HighlightPredicate.ROLLOVER_ROW, Color.BLACK, Color.WHITE));
-
-        // add a filter: include countries starting with a only
-        int col = jxTable.getColumn("COUNTRY").getModelIndex();
-        RowFilter<TableModel,Integer> temp = RowFilters.regexFilter(0, "^A", col);
-        jxTable.setRowFilter(temp);
-
-        // resize all the columns in the table to fit their contents
-        // this is available as an item in the column control drop down as well, so the user can trigger it.
-        int margin = 5;
-        jxTable.packTable(margin);
-
-        // we want the country name to always show, so we'll repack just that column
-        // we can set a max size; if -1, the column is forced to be as large as necessary for the
-        // text
-        margin = 10;
-        int max = -1;
-        // JW: don't - all column indices are view coordinates
-        // JW: maybe we need xtable api to take a TableColumn as argument?
-        //jxTable.packColumn(jxTable.getColumnExt("COUNTRY").getModelIndex(), margin, max);
-        int viewIndex = jxTable.convertColumnIndexToView(jxTable.getColumnExt("COUNTRY").getModelIndex());
-        jxTable.packColumn(viewIndex, margin, max);
     }
 
     protected JPanel createControlPanel() {
@@ -406,21 +299,6 @@ public class AvailableFilterTablePanel extends JPanel {
         statusBar.add(bar);
         statusBar.add(Box.createHorizontalStrut(12));
         return statusBar;
-    }
-
-    public static void main(String args[]) {
-
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                AvailableFilterTablePanel availableFilterTablePanel = new AvailableFilterTablePanel();
-                JXFrame frame = new JXFrame("Add Filter", true);
-                frame.add(availableFilterTablePanel);
-                frame.setSize(700, 400);
-                frame.setVisible(true);
-
-                availableFilterTablePanel.start();
-            }
-        });
     }
 
     //-----do nothing methods (keep beansbinding happy)

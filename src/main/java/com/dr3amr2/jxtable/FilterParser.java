@@ -48,36 +48,18 @@ public abstract class FilterParser extends DefaultHandler {
     static final Logger logger = Logger.getLogger(FilterParser.class.getName());
 
     private static final String[] CATEGORIES_IN = {
-            "actor", "actress", "bestPicture",
-            "actorSupporting", "actressSupporting", "artDirection",
-            "assistantDirector", "director", "cinematography",
-            "costumeDesign", "danceDirection", "docFeature",
-            "docShort", "filmEditing", "foreignFilm",
-            "makeup", "musicScore", "musicSong",
-            "screenplayAdapted", "screenplayOriginal", "shortAnimation",
-            "shortLiveAction", "sound", "soundEditing",
-            "specialEffects", "visualEffects", "writing",
-            "engEffects", "uniqueArtisticPicture", "test"
+            "test"
     };
 
     private static final String[] CATEGORIES_OUT = {
-            "Best Actor", "Best Actress", "Best Picture",
-            "Best Supporting Actor", "Best Supporting Actress", "Best Art Direction",
-            "Best Assistant Director", "Best Director", "Best Cinematography",
-            "Best Costume Design", "Best Dance Direction", "Best Feature Documentary",
-            "Best Short Documentary", "Best Film Editing", "Best Foreign Film",
-            "Best Makeup", "Best Musical Score", "Best Song",
-            "Best Adapted Screenplay", "Best Original Screenplay", "Best Animation Short",
-            "Best Live Action Short", "Best Sound", "Best Sound Editing",
-            "Best Special Effects", "Best Visual Effects", "Best Engineering Effects",
-            "Best Writing", "Most Unique Artistic Picture"
+            "Test"
     };
 
 
     private String tempVal;
 
     //to maintain context
-    private FilterDataBean tempOscarCandidate;
+    private FilterDataBean tempFilterDataBean;
         
     private int count = 0;
     
@@ -114,11 +96,7 @@ public abstract class FilterParser extends DefaultHandler {
         tempVal = "";
         for (int i = 0; i < CATEGORIES_IN.length; i++) {
             if (qName.equalsIgnoreCase(CATEGORIES_IN[i])) {
-                tempOscarCandidate = new FilterDataBean(CATEGORIES_OUT[i]);
-//                tempOscarCandidate.setYear(Integer.parseInt(attributes.getValue("year")));
-//                if (CATEGORIES_IN[i].equals("screenplayOriginal") &&
-//                     tempOscarCandidate.getYear() == 2007) {
-//                }
+                tempFilterDataBean = new FilterDataBean(CATEGORIES_OUT[i]);
                 return;
             }
         }
@@ -132,20 +110,20 @@ public abstract class FilterParser extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("name")) {
-            tempOscarCandidate.setName(tempVal);
+            tempFilterDataBean.setName(tempVal);
         } else if (qName.equalsIgnoreCase("description")) {
-            tempOscarCandidate.setDescription(tempVal);
+            tempFilterDataBean.setDescription(tempVal);
         } else if (qName.equalsIgnoreCase("user")) {
-            tempOscarCandidate.setUser(tempVal);
+            tempFilterDataBean.setUser(tempVal);
         } else if (qName.equalsIgnoreCase("filter")) {
-            tempOscarCandidate.setFilter(tempVal);
+            tempFilterDataBean.setFilter(tempVal);
         } else {
             // find category
             for (String category : CATEGORIES_IN) {
                 if (qName.equalsIgnoreCase(category)) {
                     //add it to the list
                     count++;
-                    addCandidate(tempOscarCandidate);
+                    addCandidate(tempFilterDataBean);
                     break;
                 }
             }
@@ -154,22 +132,22 @@ public abstract class FilterParser extends DefaultHandler {
 
     @Override
     public void error(SAXParseException ex) throws SAXException {
-        logger.log(Level.SEVERE, "error parsing oscar data ", ex);
+        logger.log(Level.SEVERE, "error parsing ibs filter data ", ex);
     }
 
     @Override
     public void fatalError(SAXParseException ex) throws SAXException {
-        logger.log(Level.SEVERE, "fatal error parsing oscar data ", ex);
+        logger.log(Level.SEVERE, "fatal error parsing ibs filter data ", ex);
     }
 
     @Override
     public void warning(SAXParseException ex) {
-        logger.log(Level.WARNING, "warning occurred while parsing oscar data ", ex);
+        logger.log(Level.WARNING, "warning occurred while parsing ibs filter data ", ex);
     }
 
     @Override
     public void endDocument() throws SAXException {
-        logger.log(Level.FINER, "parsed to end of oscar data.");
+        logger.log(Level.FINER, "parsed to end of ibs filter data.");
     }
 
     protected abstract void addCandidate(FilterDataBean candidate);
