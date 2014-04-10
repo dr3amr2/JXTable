@@ -31,9 +31,6 @@
 
 package com.dr3amr2.jxtable.swingxDemo;
 
-//import com.sun.swingset3.DemoProperties;
-//import com.sun.swingset3.demos.Stacker;
-
 import com.dr3amr2.jxtable.Stacker;
 import com.dr3amr2.jxtable.utils.CustomColumnFactory;
 import org.jdesktop.beansbinding.BeanProperty;
@@ -60,32 +57,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import static org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ;
-
-//import org.jdesktop.swingxset.util.DemoUtils;
-
-///**
-// * A demo for the {@code JXTable}. This demo displays the same functionality as
-// * {@link com.sun.swingset3.demos.table.TableDemo}, using SwingX components and methodologies.
-// * <p>
-// * It is not possible to extend {@code TableDemo}, since the display components are private. This
-// * class replicates contents and behavior in that class and may fall out of sync.
-// *
-// * @author Karl George Schaefer
-// * @author Jeanette Winzenberg (Devoxx '08 version)
-// * @author aim (original TableDemo)
-// */
-//@DemoProperties(
-//        value = "JXTable Demo",
-//        category = "Data",
-//        description = "Demonstrates JXTable, an enhanced data grid display.",
-//        sourceFiles = {
-//                "org/jdesktop/swingx/demos/table/XTableDemo.java",
-//                "org/jdesktop/swingx/demos/table/OscarRendering.java",
-//            "org/jdesktop/swingx/demos/table/CustomColumnFactory.java",
-//            "org/jdesktop/swingx/demos/table/OscarFiltering.java",
-//            "org/jdesktop/swingx/demos/table/resources/XTableDemo.properties"
-//        }
-//    )
     
 public class XTableDemo extends JPanel {
     static final Logger logger = Logger.getLogger(XTableDemo.class.getName());
@@ -109,7 +80,6 @@ public class XTableDemo extends JPanel {
     public XTableDemo() {
         initComponents();
         configureDisplayProperties();
-//        DemoUtils.injectResources(this);
         bind();
     }
 
@@ -118,7 +88,7 @@ public class XTableDemo extends JPanel {
      * This is data-unrelated.
      */
     private void configureDisplayProperties() {
-        //<snip> JXTable display properties
+        //JXTable display properties
         // show column control
         oscarTable.setColumnControlVisible(true);
         // replace grid lines with striping 
@@ -126,21 +96,13 @@ public class XTableDemo extends JPanel {
         oscarTable.addHighlighter(HighlighterFactory.createSimpleStriping());
         // initialize preferred size for table's viewable area
         oscarTable.setVisibleRowCount(10);
-//        </snip>
-        
-        //<snip> JXTable column properties
+
+        //JXTable column properties
         // create and configure a custom column factory
         CustomColumnFactory factory = new CustomColumnFactory();
         OscarRendering.configureColumnFactory(factory, getClass());
         // set the factory before setting the table model
         oscarTable.setColumnFactory(factory);
-//        </snip>
-
-//        DemoUtils.setSnippet("JXTable display properties", oscarTable);
-//        DemoUtils.setSnippet("JXTable column properties", oscarTable.getTableHeader());
-//        DemoUtils.setSnippet("Filter control", filterField, winnersCheckbox, tableStatus, tableRows);
-//        DemoUtils.setSnippet("Use SwingWorker to asynchronously load the data", statusBarLeft,
-//                (JComponent) statusBarLeft.getParent());
     }
 
     /**
@@ -148,14 +110,13 @@ public class XTableDemo extends JPanel {
      */
     protected void bind() {
         
-        //<snip> JXTable data properties
+        //JXTable data properties
         oscarModel = new OscarTableModel();
         // set the table model after setting the factory
         oscarTable.setModel(oscarModel);
-//        </snip>
-        
-        // <snip> Filter control
-        // create the controller
+
+        // Filter control
+        //      create the controller
         filterController = new OscarFiltering(oscarTable);
         // bind controller properties to input components
         BindingGroup filterGroup = new BindingGroup();
@@ -174,23 +135,22 @@ public class XTableDemo extends JPanel {
                 filterController, BeanProperty.create("filterString"),
                 this, BeanProperty.create("statusContent")));
         filterGroup.bind();
-//        </snip>
+
         oscarModel.addTableModelListener(new TableModelListener() {
             public void tableChanged(TableModelEvent e) {
                 updateStatusBar();
             }
         });
 
-        //<snip> JXTable column properties
-        // some display properties can be configured only after the model has been set, here:
-        // configure the view sequence of columns to be different from the model
+        //  JXTable column properties
+        //      some display properties can be configured only after the model has been set, here:
+        //      configure the view sequence of columns to be different from the model
         oscarTable.setColumnSequence(new Object[] {
                 OscarTableModel.year_ID,
                 OscarTableModel.category_ID,
                 OscarTableModel.movieTitle_ID,
                 OscarTableModel.nominees_ID
         });
-        // </snip>
     }
 
     /**
@@ -208,7 +168,6 @@ public class XTableDemo extends JPanel {
     protected void updateStatusBar() {
         tableStatus.setName(filterController.isFilteringByString() 
                 ? "searchCountLabel" : "rowCountLabel");
-//        DemoUtils.injectResources(this, tableStatus);
         tableRows.setText("" + oscarTable.getRowCount());
     }
     
@@ -217,8 +176,8 @@ public class XTableDemo extends JPanel {
      */
     public void start() {
         if (oscarModel.getRowCount() != 0) return;
-        //<snip>Use SwingWorker to asynchronously load the data
-        // create SwingWorker which will load the data on a separate thread
+        //  Use SwingWorker to asynchronously load the data
+        //      create SwingWorker which will load the data on a separate thread
         SwingWorker<?, ?> loader = new OscarDataLoader(
                 XTableDemo.class.getResource("/demo/oscars.xml"), oscarModel);
         
@@ -236,7 +195,6 @@ public class XTableDemo extends JPanel {
                 this, BeanProperty.create("loadState")));
         group.bind();
         loader.execute();
-//        </snip>
     }
 
     /**
@@ -244,23 +202,21 @@ public class XTableDemo extends JPanel {
      * @param state
      */
     public void setLoadState(StateValue state) {
-        //<snip>Use SwingWorker to asynchronously load the data
-        // remove progressbar if done loading
+        //  Use SwingWorker to asynchronously load the data
+        //      remove progressbar if done loading
         if (state != StateValue.DONE) return;
         statusBarLeft.remove(progressBar);
         statusBarLeft.remove(actionStatus);
         revalidate();
         repaint();
-//        </snip>
     }
     
-    //<snip>Use SwingWorker to asynchronously load the data
-    // specialized on OscarCandidate
+    //  Use SwingWorker to asynchronously load the data
+    //      specialized on OscarCandidate
     private class OscarDataLoader extends SwingWorker<List<OscarCandidate>, OscarCandidate> {
         private final URL oscarData;
         private final OscarTableModel oscarModel;
         private final List<OscarCandidate> candidates = new ArrayList<OscarCandidate>();
-//        </snip>
         private JLabel credits;
          
         private OscarDataLoader(URL oscarURL, OscarTableModel oscarTableModel) {
@@ -268,9 +224,9 @@ public class XTableDemo extends JPanel {
             this.oscarModel = oscarTableModel;
         }
 
-        //<snip>Use SwingWorker to asynchronously load the data
-        // background task let a parser do its stuff and 
-        // update a progress bar
+        //  Use SwingWorker to asynchronously load the data
+        //      background task let a parser do its stuff and
+        //      update a progress bar
         @Override
         public List<OscarCandidate> doInBackground() {
             OscarDataParser parser = new OscarDataParser() {
@@ -290,7 +246,6 @@ public class XTableDemo extends JPanel {
             parser.parseDocument(oscarData);
             return candidates;
         }
-//        </snip>
 
         @Override
         protected void process(List<OscarCandidate> moreCandidates) {
@@ -308,8 +263,8 @@ public class XTableDemo extends JPanel {
             }
         }
         
-        //<snip>Use SwingWorker to asynchronously load the data
-        // show a transparent overlay on start loading
+        //  Use SwingWorker to asynchronously load the data
+        //      show a transparent overlay on start loading
         private void showCredits() {
             credits = new JLabel(); 
             credits.setName("credits");
@@ -319,23 +274,20 @@ public class XTableDemo extends JPanel {
                     new EmptyBorder(20,20,20,20)));
 
             dataPanel.showMessageLayer(credits, .75f);
-//            DemoUtils.injectResources(XTableDemo.this, dataPanel);
         }
-//        </snip>
-        
+
         @Override
-        //<snip>Use SwingWorker to asynchronously load the data
-        // hide transparend overlay on end loading
+        //  Use SwingWorker to asynchronously load the data
+        //      hide transparend overlay on end loading
         protected void done() {
             setProgress(100);
             dataPanel.hideMessageLayer();
         }
-//        </snip>
     }
     
 //------------------ init ui    
-    //<snip> JXTable display properties
-    // center column header text
+    //  JXTable display properties
+    //      center column header text
     private JXTable createXTable() {
         JXTable table = new JXTable() {
 
@@ -352,8 +304,6 @@ public class XTableDemo extends JPanel {
                             
                         }
                     }
-//                    </snip>
-                    
                 };
             }
             

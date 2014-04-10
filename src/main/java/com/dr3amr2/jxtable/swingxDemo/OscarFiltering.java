@@ -40,12 +40,11 @@ public class OscarFiltering extends AbstractBean {
      */
     public void setFilterString(String filterString) {
         String oldValue = getFilterString();
-        // <snip> Filter control
-        // set the filter string (bound to the input in the textfield)
-        // and update the search RowFilter
+        //  Filter control
+        //      set the filter string (bound to the input in the textfield)
+        //      and update the search RowFilter
         this.filterString = filterString;
         updateSearchFilter();
-//        </snip>
         firePropertyChange("filterString", oldValue, getFilterString());
     }
 
@@ -91,8 +90,8 @@ public class OscarFiltering extends AbstractBean {
 
     
     private void updateFilters() {
-        // <snip> Filter control
-        // set the filters to the table 
+        //  Filter control
+        //      set the filters to the table
         if ((searchFilter != null) && (winnerFilter != null)) {
             List<RowFilter<TableModel, Integer>> filters =
                 new ArrayList<RowFilter<TableModel, Integer>>(2);
@@ -105,7 +104,6 @@ public class OscarFiltering extends AbstractBean {
         } else {
             oscarTable.setRowFilter(winnerFilter);
         }
-//        </snip>
     }
 
 
@@ -127,8 +125,8 @@ public class OscarFiltering extends AbstractBean {
         return newRowFilter;
     }
     
-    // <snip> Filter control
-    // create and return a custom RowFilter specialized on OscarCandidate
+    //  Filter control
+    //      create and return a custom RowFilter specialized on OscarCandidate
     private RowFilter<TableModel, Integer> createSearchFilter(final String filterString){
         return new RowFilter<TableModel, Integer>() {
             @Override
@@ -156,9 +154,7 @@ public class OscarFiltering extends AbstractBean {
                     }
                 }
                 return matches;
-//                </snip>
             }
         };
     }
-
 }

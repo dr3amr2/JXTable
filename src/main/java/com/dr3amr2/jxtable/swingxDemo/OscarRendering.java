@@ -30,9 +30,9 @@ public class OscarRendering {
     private static final Logger LOG = Logger.getLogger(OscarRendering.class
             .getName());
     
-    //<snip> JXTable column properties
-    // Note: the custom column factory is a feature enhanced factory
-    // which allows column configuration based on column identifier
+    //  JXTable column properties
+    //      Note: the custom column factory is a feature enhanced factory
+    //      which allows column configuration based on column identifier
     public static void configureColumnFactory(CustomColumnFactory factory,
             Class<?> resourceBase) {
         // set location to load resources from
@@ -72,10 +72,9 @@ public class OscarRendering {
         
         // Visual Decorators
         // .... and more 
-//        </snip>
-        
-        // <snip> Highlighter and Renderer
-        // ToolTip for movie column
+
+        //  Highlighter and Renderer
+        //      ToolTip for movie column
         StringValue toolTip = new StringValue() {
             
             public String getString(Object value) {
@@ -125,12 +124,10 @@ public class OscarRendering {
                 new CompoundHighlighter(winnerPredicate, winner, winnerToolTip),
                 new CompoundHighlighter(new HighlightPredicate.NotHighlightPredicate(winnerPredicate),
                         nominee, nomineeToolTip)));
-//        </snip>
-
     }
 
-    //<snip> Highlighter and Renderer
-    // a custom link action to drive the hyperlink on the movie column
+    //  Highlighter and Renderer
+    //      a custom link action to drive the hyperlink on the movie column
     /**
      * HyperlinkAction to open the info page related to the OscarCandiate.
      * <p>
@@ -180,7 +177,6 @@ public class OscarRendering {
                 showConnectionError(ex);
             }
         }
-//        </snip>
 
         /**
          * Looks up the URI of the info page.
@@ -348,6 +344,4 @@ public class OscarRendering {
         }
 
     }
-    
-
 }
