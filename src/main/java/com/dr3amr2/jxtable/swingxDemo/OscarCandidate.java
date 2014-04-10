@@ -99,5 +99,8 @@ public class OscarCandidate {
         return persons;
     }
 
-
+    @Override
+    public String toString() {
+        return getMovieTitle();
+    }
 }

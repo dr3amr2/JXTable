@@ -56,7 +56,7 @@ public abstract class OscarDataParser extends DefaultHandler {
             "screenplayAdapted", "screenplayOriginal", "shortAnimation",
             "shortLiveAction", "sound", "soundEditing",
             "specialEffects", "visualEffects", "writing",
-            "engEffects", "uniqueArtisticPicture",
+            "engEffects", "uniqueArtisticPicture"
     };
 
     private static final String[] CATEGORIES_OUT = {

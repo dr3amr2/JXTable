@@ -61,12 +61,13 @@ public class OscarRendering {
         prototype.setMovieTitle("And here we go again ... should ");
         factory.addPrototypeValue(OscarTableModel.year_ID, prototype.getYear());
         factory.addPrototypeValue(OscarTableModel.category_ID, prototype.getCategory());
-        factory.addPrototypeValue(OscarTableModel.movieTitle_ID, prototype);
+        factory.addPrototypeValue(OscarTableModel.movieTitle_ID, prototype.getMovieTitle());
         factory.addPrototypeValue(OscarTableModel.nominees_ID, prototype.getPersons());
         
         // register component providers per column identifier
         factory.addComponentProvider(OscarTableModel.year_ID, new LabelProvider(JLabel.CENTER));
         factory.addComponentProvider(OscarTableModel.nominees_ID, new LabelProvider(new ListStringValue()));
+        //  factory.addComponentProvider(OscarTableModel.movieTitle_ID, new LabelProvider(JLabel.LEFT));
         factory.addComponentProvider(OscarTableModel.movieTitle_ID,
                 new HyperlinkProvider(new OscarCandidateLinkAction(), OscarCandidate.class));
         
