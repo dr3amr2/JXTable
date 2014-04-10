@@ -38,7 +38,7 @@ public class OscarRendering {
         // set location to load resources from
         factory.setBaseClass(resourceBase);
         // mark the isWinner column as hidden
-        factory.addHiddenNames("winnerColumn");
+        factory.addHiddenNames(OscarTableModel.winner_ID);
 
         // register a custom comparator
         Comparator<OscarCandidate> comparator = new Comparator<OscarCandidate>() {
@@ -52,22 +52,22 @@ public class OscarRendering {
             }
             
         };
-        factory.addComparator("movieTitleColumn", comparator);
+        factory.addComparator(OscarTableModel.movieTitle_ID, comparator);
 
         // add hints for column sizing
         OscarCandidate prototype = new OscarCandidate("Special Effects and");
         prototype.getPersons().add("some unusually name or");
         prototype.setYear(20000);
         prototype.setMovieTitle("And here we go again ... should ");
-        factory.addPrototypeValue("yearColumn", prototype.getYear());
-        factory.addPrototypeValue("categoryColumn", prototype.getCategory());
-        factory.addPrototypeValue("movieTitleColumn", prototype);
-        factory.addPrototypeValue("nomineesColumn", prototype.getPersons());
+        factory.addPrototypeValue(OscarTableModel.year_ID, prototype.getYear());
+        factory.addPrototypeValue(OscarTableModel.category_ID, prototype.getCategory());
+        factory.addPrototypeValue(OscarTableModel.movieTitle_ID, prototype);
+        factory.addPrototypeValue(OscarTableModel.nominees_ID, prototype.getPersons());
         
         // register component providers per column identifier
-        factory.addComponentProvider("yearColumn", new LabelProvider(JLabel.CENTER));
-        factory.addComponentProvider("nomineesColumn", new LabelProvider(new ListStringValue()));
-        factory.addComponentProvider("movieTitleColumn", 
+        factory.addComponentProvider(OscarTableModel.year_ID, new LabelProvider(JLabel.CENTER));
+        factory.addComponentProvider(OscarTableModel.nominees_ID, new LabelProvider(new ListStringValue()));
+        factory.addComponentProvider(OscarTableModel.movieTitle_ID,
                 new HyperlinkProvider(new OscarCandidateLinkAction(), OscarCandidate.class));
         
         // Visual Decorators
@@ -95,8 +95,8 @@ public class OscarRendering {
         };
         
         ToolTipHighlighter movieToolTip = new ToolTipHighlighter();
-        movieToolTip.addStringValue(toolTip, "movieTitleColumn");
-        factory.addHighlighter("movieTitleColumn", movieToolTip);
+        movieToolTip.addStringValue(toolTip, OscarTableModel.movieTitle_ID);
+        factory.addHighlighter(OscarTableModel.movieTitle_ID, movieToolTip);
         
         // ToolTips for nominees column
         Icon winnerIcon = new ImageIcon(ImageUtils.getImageFromResources("/icons/approve.png"));
@@ -105,23 +105,23 @@ public class OscarRendering {
         // Icon and tool tip decorator for winners
         IconHighlighter winner = new IconHighlighter(winnerIcon);
         ToolTipHighlighter winnerToolTip = new ToolTipHighlighter();
-        winnerToolTip.addStringValue(new ListStringValue(true, "Winner!", "Winners: "), "nomineesColumn");
+        winnerToolTip.addStringValue(new ListStringValue(true, "Winner!", "Winners: "), OscarTableModel.nominees_ID);
         // Icon and tool tip decorators for nominees
         IconHighlighter nominee = new IconHighlighter(nomineeIcon);
         ToolTipHighlighter nomineeToolTip = new ToolTipHighlighter();
-        nomineeToolTip.addStringValue(new ListStringValue(true, "Nominee", "Nominees: "), "nomineesColumn");
+        nomineeToolTip.addStringValue(new ListStringValue(true, "Nominee", "Nominees: "), OscarTableModel.nominees_ID);
         // the predicate to decide which to use
         HighlightPredicate winnerPredicate = new HighlightPredicate() {
             
             public boolean isHighlighted(Component renderer,
                     ComponentAdapter adapter) {
-                int modelColumn = adapter.getColumnIndex("winnerColumn");
+                int modelColumn = adapter.getColumnIndex(OscarTableModel.winner_ID);
                 return ((Boolean) adapter.getValue(modelColumn)).booleanValue();
             }
             
         };
         // compound per-predicate and add as column highlighter to the factory
-        factory.addHighlighter("nomineesColumn", new CompoundHighlighter(
+        factory.addHighlighter(OscarTableModel.nominees_ID, new CompoundHighlighter(
                 new CompoundHighlighter(winnerPredicate, winner, winnerToolTip),
                 new CompoundHighlighter(new HighlightPredicate.NotHighlightPredicate(winnerPredicate),
                         nominee, nomineeToolTip)));

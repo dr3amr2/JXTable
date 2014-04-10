@@ -49,8 +49,14 @@ public class OscarTableModel extends AbstractTableModel {
     public static final int PERSONS_COLUMN = 4;
     public static final int COLUMN_COUNT = 5;
 
-    private static final String[] columnIds = {"categoryColumn", "yearColumn", "winnerColumn", 
-        "movieTitleColumn", "nomineesColumn"};
+    public static final String category_ID = "Category";
+    public static final String year_ID = "Year";
+    public static final String winner_ID = "Winner";
+    public static final String movieTitle_ID = "Movie Title";
+    public static final String nominees_ID = "Nominees";
+
+    private static final String[] columnIds = {category_ID, year_ID, winner_ID,
+        movieTitle_ID, nominees_ID};
 
     @Override
     public String getColumnName(int column) {

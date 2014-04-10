@@ -140,11 +140,11 @@ public class OscarFiltering extends AbstractBean {
                 // match against movie title
                 String movie = candidate.getMovieTitle();
                 if (movie != null) {
-                    if (movie.startsWith("The ")) {
-                        movie = movie.replace("The ", "");
-                    } else if (movie.startsWith("A ")) {
-                        movie = movie.replace("A ", "");
-                    }
+                    //                    if (movie.startsWith("The ")) {
+                    //                        movie = movie.replace("The ", "");
+                    //                    } else if (movie.startsWith("A ")) {
+                    //                        movie = movie.replace("A ", "");
+                    //                    }
                     // Returning true indicates this row should be shown.
                     matches = p.matcher(movie).matches();
                 }

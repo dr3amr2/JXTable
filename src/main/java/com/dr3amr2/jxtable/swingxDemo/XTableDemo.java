@@ -184,7 +184,12 @@ public class XTableDemo extends JPanel {
         //<snip> JXTable column properties
         // some display properties can be configured only after the model has been set, here:
         // configure the view sequence of columns to be different from the model
-        oscarTable.setColumnSequence(new Object[] {"yearColumn", "categoryColumn", "movieTitleColumn", "nomineesColumn"});
+        oscarTable.setColumnSequence(new Object[] {
+                OscarTableModel.year_ID,
+                OscarTableModel.category_ID,
+                OscarTableModel.movieTitle_ID,
+                OscarTableModel.nominees_ID
+        });
         // </snip>
     }
 
