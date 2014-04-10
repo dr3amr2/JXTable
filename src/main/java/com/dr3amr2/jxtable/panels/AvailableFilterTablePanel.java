@@ -51,7 +51,6 @@ public class AvailableFilterTablePanel extends JPanel {
     public AvailableFilterTablePanel() {
         initComponents();
         configureDisplayProperties();
-//        DemoUtils.injectResources(this);
         bind();
     }
 
@@ -60,7 +59,6 @@ public class AvailableFilterTablePanel extends JPanel {
      * This is data-unrelated.
      */
     private void configureDisplayProperties() {
-        //<snip> JXTable display properties
         // show column control
         filterTable.setColumnControlVisible(true);
         // replace grid lines with striping
@@ -68,21 +66,13 @@ public class AvailableFilterTablePanel extends JPanel {
         filterTable.addHighlighter(HighlighterFactory.createSimpleStriping());
         // initialize preferred size for table's viewable area
         filterTable.setVisibleRowCount(10);
-        //        </snip>
 
-        //<snip> JXTable column properties
         // create and configure a custom column factory
         CustomColumnFactory factory = new CustomColumnFactory();
-//        OscarRendering.configureColumnFactory(factory, getClass());
+        //  OscarRendering.configureColumnFactory(factory, getClass());
+
         // set the factory before setting the table model
         filterTable.setColumnFactory(factory);
-        //        </snip>
-
-//        DemoUtils.setSnippet("JXTable display properties", filterTable);
-//        DemoUtils.setSnippet("JXTable column properties", filterTable.getTableHeader());
-//        DemoUtils.setSnippet("Filter control", filterField, winnersCheckbox, tableStatus, tableRows);
-//        DemoUtils.setSnippet("Use SwingWorker to asynchronously load the data", statusBarLeft,
-//                (JComponent) statusBarLeft.getParent());
     }
 
     /**
@@ -126,7 +116,7 @@ public class AvailableFilterTablePanel extends JPanel {
         //<snip> JXTable column properties
         // some display properties can be configured only after the model has been set, here:
         // configure the view sequence of columns to be different from the model
-        filterTable.setColumnSequence(new Object[]{"nameColumn", "descriptionColumn", "userColumn", "filterColumn"});
+        filterTable.setColumnSequence(new Object[]{"name", "description", "user", "filter"});
         // </snip>
     }
 
@@ -149,12 +139,9 @@ public class AvailableFilterTablePanel extends JPanel {
         tableRows.setText("" + filterTable.getRowCount());
     }
 
-    /**
-     * Callback method for demo loader.
-     */
+
     public void start() {
         if (filterModel.getRowCount() != 0) return;
-        //<snip>Use SwingWorker to asynchronously load the data
         // create SwingWorker which will load the data on a separate thread
         SwingWorker<?, ?> loader = new FilterDataLoader(
                 AvailableFilterTablePanel.class.getResource("/demo/oscars.xml"), filterModel, dataPanel);
@@ -173,7 +160,6 @@ public class AvailableFilterTablePanel extends JPanel {
                 this, BeanProperty.create("loadState")));
         group.bind();
         loader.execute();
-        //        </snip>
     }
 
     /**
@@ -181,7 +167,7 @@ public class AvailableFilterTablePanel extends JPanel {
      * @param state
      */
     public void setLoadState(StateValue state) {
-        //<snip>Use SwingWorker to asynchronously load the data
+        // Use SwingWorker to asynchronously load the data
         // remove progressbar if done loading
         if (state != StateValue.DONE) return;
         statusBarLeft.remove(progressBar);
@@ -191,7 +177,7 @@ public class AvailableFilterTablePanel extends JPanel {
         //        </snip>
     }
 
-    //<snip>Use SwingWorker to asynchronously load the data
+    //<Use SwingWorker to asynchronously load the data
     // specialized on FilterDataBean
 
 
@@ -231,28 +217,24 @@ public class AvailableFilterTablePanel extends JPanel {
 
         filterTable = createJXTable();
         filterTable.setName("filterTable");
+
         scrollPane = new JScrollPane(filterTable);
         dataPanel = new Stacker(scrollPane);
-        add(dataPanel, BorderLayout.CENTER);
-        JXTable jxTable = initTable();
-        configureJXTable(jxTable);
-
-        //Create the scroll pane and add the table to it.
-        JScrollPane scrollPane = new JScrollPane(jxTable);
-
-        //Add the scroll pane to this panel.
         add(scrollPane, BorderLayout.CENTER);
 
+        // Sample Table Model
+        //        JXTable jxTable = initSampleJXTable();
+        //        configureSampleJXTable(jxTable);
+        //        JScrollPane sampleScrollPane = new JScrollPane(jxTable);
+        //        add(sampleScrollPane, BorderLayout.CENTER);
 
-
-//        add(scrollPane, BorderLayout.CENTER);
         add(createStatusBar(), BorderLayout.SOUTH);
     }
 
 
 
     /** Initialize our JXTable; this is standard stuff, just as with JTable */
-    private JXTable initTable() {
+    private JXTable initSampleJXTable() {
         // boilerplate table-setup; this would be the same for a JTable
         JXTable table = new JXTable();
 
@@ -260,13 +242,18 @@ public class AvailableFilterTablePanel extends JPanel {
         // if we would want a per-table ColumnFactory we would have
         // to set it here, before setting the model
         // table.setColumnFactory(myVerySpecialColumnFactory);
+
+        // Using Sample model
         SampleTableModel model = new SampleTableModel();
         table.setModel(model);
         model.loadData();
+
+
+
         return table;
     }
 
-    private void configureJXTable(JXTable jxTable) {
+    private void configureSampleJXTable(JXTable jxTable) {
         // set the number of visible rows
         jxTable.setVisibleRowCount(30);
         // set the number of visible columns

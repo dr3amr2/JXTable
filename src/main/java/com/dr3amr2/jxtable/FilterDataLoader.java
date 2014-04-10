@@ -1,3 +1,5 @@
+package com.dr3amr2.jxtable;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -9,12 +11,11 @@ import java.util.List;
 /**
  * Created by dnguyen on 3/27/2014.
  */
-class FilterDataLoader extends SwingWorker<List<FilterDataBean>, FilterDataBean> {
+public class FilterDataLoader extends SwingWorker<List<FilterDataBean>, FilterDataBean> {
     private final URL oscarData;
     private final FilterTableModel oscarModel;
     private final List<FilterDataBean> candidates = new ArrayList<FilterDataBean>();
     private final Stacker dataPanel;
-    //        </snip>
     private JLabel credits;
 
     public FilterDataLoader(URL filterURL, FilterTableModel filterTableModel, Stacker dataPanel) {
@@ -23,7 +24,7 @@ class FilterDataLoader extends SwingWorker<List<FilterDataBean>, FilterDataBean>
         this.dataPanel = dataPanel;
     }
 
-    //<snip>Use SwingWorker to asynchronously load the data
+    //Use SwingWorker to asynchronously load the data
     // background task let a parser do its stuff and
     // update a progress bar
     @Override
@@ -63,7 +64,7 @@ class FilterDataLoader extends SwingWorker<List<FilterDataBean>, FilterDataBean>
         }
     }
 
-    //<snip>Use SwingWorker to asynchronously load the data
+    //>Use SwingWorker to asynchronously load the data
     // show a transparent overlay on start loading
     private void showCredits() {
         credits = new JLabel();
@@ -74,16 +75,13 @@ class FilterDataLoader extends SwingWorker<List<FilterDataBean>, FilterDataBean>
                 new EmptyBorder(20,20,20,20)));
 
         dataPanel.showMessageLayer(credits, .75f);
-//            DemoUtils.injectResources(XTableDemo.this, dataPanel);
     }
-    //        </snip>
 
     @Override
-    //<snip>Use SwingWorker to asynchronously load the data
+    //Use SwingWorker to asynchronously load the data
     // hide transparend overlay on end loading
     protected void done() {
         setProgress(100);
             dataPanel.hideMessageLayer();
     }
-    //        </snip>
 }

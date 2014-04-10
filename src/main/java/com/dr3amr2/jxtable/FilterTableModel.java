@@ -19,8 +19,8 @@ public class FilterTableModel extends AbstractTableModel {
     public static final int FILTER_COLUMN = 3;
     public static final int COLUMN_COUNT = 4;
 
-    private static final String[] columnIds = {"nameColumn", "descriptionColumn", "userColumn",
-            "filterColumn"};
+    private static final String[] columnIds = {"name", "description", "user",
+            "filter"};
 
     @Override
     public String getColumnName(int column) {
