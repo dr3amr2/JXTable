@@ -5,6 +5,8 @@ package com.dr3amr2.jxtable; /**
  * com.test.swingx.demo.SimpleJXTableDemo.java is a 1.45 application that requires no other files. It is derived from
  * SimpleTableDemo in the Swing tutorial.
  */
+
+import com.dr3amr2.jxtable.model.SampleTableModel;
 import org.jdesktop.swingx.JXFrame;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.action.AbstractActionExt;
@@ -16,15 +18,11 @@ import org.jdesktop.swingx.table.ColumnFactory;
 import org.jdesktop.swingx.table.TableColumnExt;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.net.URL;
 import java.util.Comparator;
 
 /**
@@ -325,49 +323,5 @@ public class SimpleJXTableDemo {
                 createAndShowGUI();
             }
         });
-    }
-
-    class SampleTableModel extends DefaultTableModel {
-        void loadData() {
-            try {
-                URL url = SampleTableModel.class.getResource("/demo/weather.txt");
-                loadDataFromCSV(url);
-            } catch (Exception e) {
-                e.printStackTrace();
-                loadDefaultData();
-            }
-        }
-
-        private void loadDataFromCSV(URL url) {
-            try {
-                LineNumberReader lnr = new LineNumberReader(new InputStreamReader(url.openStream()));
-                String line = lnr.readLine();
-                String[] cols = line.split("\t");
-                for (String col : cols) {
-                    addColumn(col);
-                }
-                while ((line = lnr.readLine()) != null) {
-                    addRow(line.split("\t"));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                loadDefaultData();
-            }
-        }
-
-        private void loadDefaultData() {
-            int colCnt = 6;
-            int rowCnt = 10;
-            for (int i = 0; i < colCnt; i++) {
-                addColumn("Column-" + (i + 1));
-            }
-            for (int i = 0; i <= rowCnt; i++) {
-                String[] row = new String[colCnt];
-                for (int j = 0; j < colCnt; j++) {
-                    row[j] = "Row-" + i + "Column-" + (j + 1);
-                }
-                addRow(row);
-            }
-        }
     }
 }

@@ -2,8 +2,6 @@ package com.dr3amr2.jxtable.ibsFilter; /**
  * Created by dnguyen on 3/24/14.
  */
 
-import com.dr3amr2.jxtable.ibsFilter.FilterDataBean;
-
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,7 @@ public class FilterTableModel extends AbstractTableModel {
     public static final String description_ID = "Description";
     public static final String user_ID = "User";
     public static final String filter_ID = "Filter";
-    public static final String filter_on_ID = "Filter";
+    public static final String filter_on_ID = "Filter On";
 
 
     private static final String[] columnIds = {

@@ -125,37 +125,46 @@ public class DataFiltering extends AbstractBean {
         };
     }
 
-    // <snip> Filter control
-    // create and return a custom RowFilter specialized on FilterDataBean
+    //  Filter control
+    //      create and return a custom RowFilter specialized on FilterDataBean
     private RowFilter<TableModel, Integer> createSearchFilter(final String filterString) {
         return new RowFilter<TableModel, Integer>() {
             @Override
             public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
-                FilterTableModel oscarModel = (FilterTableModel) entry.getModel();
-                FilterDataBean candidate = oscarModel.getCandidate(((Integer) entry.getIdentifier()).intValue());
+                FilterTableModel filterTableModel = (FilterTableModel) entry.getModel();
+                FilterDataBean contact = filterTableModel.getCandidate((Integer) entry.getIdentifier());
                 boolean matches = false;
                 Pattern p = Pattern.compile(filterString + ".*", Pattern.CASE_INSENSITIVE);
-                // match against movie title
-                // TODO Implement to filter against all columns
-                String movie = candidate.getDescription();
-                if (movie != null) {
-//                    if (movie.startsWith("The ")) {
-//                        movie = movie.replace("The ", "");
-//                    } else if (movie.startsWith("A ")) {
-//                        movie = movie.replace("A ", "");
-//                    }
-                    // Returning true indicates this row should be shown.
-                    matches = p.matcher(movie).matches();
+
+                // Match against all columns
+                String filterSearch = contact.getFilter();
+                if (filterSearch != null) {
+                    matches = p.matcher(filterSearch).matches();
                 }
-                List<String> persons = candidate.getFilters();
-                for (String person : persons) {
+
+                String descriptionSearch = contact.getDescription();
+                if (descriptionSearch != null && matches == false) {
+                    matches = p.matcher(descriptionSearch).matches();
+                }
+
+                String nameSearch = contact.getName();
+                if (nameSearch != null && matches == false) {
+                    matches = p.matcher(nameSearch).matches();
+                }
+
+                String userSearch = contact.getUser();
+                if (userSearch != null && matches == false) {
+                    matches = p.matcher(userSearch).matches();
+                }
+
+                List<String> filters = contact.getFilters();
+                for (String filter : filters) {
                     // match against persons as well
-                    if (p.matcher(person).matches()) {
+                    if (p.matcher(filter).matches()) {
                         matches = true;
                     }
                 }
                 return matches;
-                //                </snip>
             }
         };
     }

@@ -50,10 +50,10 @@ public class FilterRendering {
         factory.addComparator(FilterTableModel.filter_ID, comparator);
 
         // add hints for column sizing
-        FilterDataBean prototype = new FilterDataBean("Sample Filter Data Bean");
-        prototype.getFilters().add("some unusually name or");
-        prototype.setName("Testing Name");
-        prototype.setDescription("Here's a random description of a discription");
+        FilterDataBean prototype = new FilterDataBean("IBS Filters");
+//        prototype.getFilters().add("some unusually name or what am I talking about");
+//        prototype.setName("Testing Name");
+//        prototype.setDescription("Here's a random description");
         factory.addPrototypeValue(FilterTableModel.name_ID, prototype.getName());
         factory.addPrototypeValue(FilterTableModel.description_ID, prototype.getDescription());
         factory.addPrototypeValue(FilterTableModel.filter_ID, prototype.getFilter());
