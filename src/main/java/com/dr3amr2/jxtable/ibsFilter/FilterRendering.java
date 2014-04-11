@@ -36,21 +36,21 @@ public class FilterRendering {
         factory.addHiddenNames(FilterTableModel.filter_on_ID);
 
         // register a custom comparator
-        Comparator<FilterDataBean> comparator = new Comparator<FilterDataBean>() {
+        Comparator<IbsContact> comparator = new Comparator<IbsContact>() {
 
-            public int compare(FilterDataBean o1, FilterDataBean o2) {
-                String movie1 = o1.getFilter();
-                String movie2 = o2.getFilter();
-                if (movie1 == null) return -1;
-                if (movie2 == null) return 1;
-                return movie1.compareTo(movie2);
+            public int compare(IbsContact o1, IbsContact o2) {
+                String contact1 = o1.getFilter();
+                String contact2 = o2.getFilter();
+                if (contact1 == null) return -1;
+                if (contact2 == null) return 1;
+                return contact1.compareTo(contact2);
             }
 
         };
         factory.addComparator(FilterTableModel.filter_ID, comparator);
 
         // add hints for column sizing
-        FilterDataBean prototype = new FilterDataBean("IBS Filters");
+        IbsContact prototype = new IbsContact("IBS Filters");
 //        prototype.getFilters().add("some unusually name or what am I talking about");
 //        prototype.setName("Testing Name");
 //        prototype.setDescription("Here's a random description");

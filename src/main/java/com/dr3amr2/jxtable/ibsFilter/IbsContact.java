@@ -1,14 +1,14 @@
 package com.dr3amr2.jxtable.ibsFilter;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dnguyen on 3/24/14.
+ *
+ *
  */
-
-public class FilterDataBean {
+public class IbsContact {
 
     private String name;
     private String description;
@@ -18,9 +18,9 @@ public class FilterDataBean {
     private final ArrayList<String> filters = new ArrayList<String>();
 
     /**
-     * Creates a new instance of FilterDataBean
+     * Creates a new instance of IbsContact
      */
-    public FilterDataBean(String name) {
+    public IbsContact(String name) {
         this.name = name;
     }
 

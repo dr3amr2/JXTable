@@ -37,12 +37,11 @@ public class DataFiltering extends AbstractBean {
      */
     public void setFilterString(String filterString) {
         String oldValue = getFilterString();
-        // <snip> Filter control
-        // set the filter string (bound to the input in the textfield)
-        // and update the search RowFilter
+        //  Filter control
+        //      set the filter string (bound to the input in the textfield)
+        //      and update the search RowFilter
         this.filterString = filterString;
         updateSearchFilter();
-        //        </snip>
         firePropertyChange("filterString", oldValue, getFilterString());
     }
 
@@ -73,7 +72,7 @@ public class DataFiltering extends AbstractBean {
 
 
     private void updateWinnerFilter() {
-//        winnerFilter = showOnlyWinners ? createWinnerFilter() : null;
+        winnerFilter = showOnlyWinners ? createWinnerFilter() : null;
         updateFilters();
     }
 
@@ -88,8 +87,8 @@ public class DataFiltering extends AbstractBean {
 
 
     private void updateFilters() {
-        // <snip> Filter control
-        // set the filters to the table
+        //  Filter control
+        //      set the filters to the table
         if ((searchFilter != null) && (winnerFilter != null)) {
             List<RowFilter<TableModel, Integer>> filters =
                     new ArrayList<RowFilter<TableModel, Integer>>(2);
@@ -105,7 +104,6 @@ public class DataFiltering extends AbstractBean {
                 filterTable.setRowFilter(winnerFilter);
             }
         }
-        //        </snip>
     }
 
 
@@ -113,8 +111,8 @@ public class DataFiltering extends AbstractBean {
         return new RowFilter<TableModel, Integer>() {
             @Override
             public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
-                FilterTableModel oscarModel = (FilterTableModel) entry.getModel();
-                FilterDataBean candidate = oscarModel.getCandidate(((Integer) entry.getIdentifier()).intValue());
+                FilterTableModel filterTableModel = (FilterTableModel) entry.getModel();
+                IbsContact candidate = filterTableModel.getCandidate((Integer) entry.getIdentifier());
                 if (candidate.isFilterOn()) {
                     // Returning true indicates this row should be shown.
                     return true;
@@ -126,13 +124,14 @@ public class DataFiltering extends AbstractBean {
     }
 
     //  Filter control
-    //      create and return a custom RowFilter specialized on FilterDataBean
+    //      create and return a custom RowFilter specialized on IbsContact
     private RowFilter<TableModel, Integer> createSearchFilter(final String filterString) {
         return new RowFilter<TableModel, Integer>() {
             @Override
             public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
                 FilterTableModel filterTableModel = (FilterTableModel) entry.getModel();
-                FilterDataBean contact = filterTableModel.getCandidate((Integer) entry.getIdentifier());
+                IbsContact contact;
+                contact = filterTableModel.getCandidate((Integer) entry.getIdentifier());
                 boolean matches = false;
                 Pattern p = Pattern.compile(filterString + ".*", Pattern.CASE_INSENSITIVE);
 
@@ -143,17 +142,17 @@ public class DataFiltering extends AbstractBean {
                 }
 
                 String descriptionSearch = contact.getDescription();
-                if (descriptionSearch != null && matches == false) {
+                if (descriptionSearch != null && !matches) {
                     matches = p.matcher(descriptionSearch).matches();
                 }
 
                 String nameSearch = contact.getName();
-                if (nameSearch != null && matches == false) {
+                if (nameSearch != null && !matches) {
                     matches = p.matcher(nameSearch).matches();
                 }
 
                 String userSearch = contact.getUser();
-                if (userSearch != null && matches == false) {
+                if (userSearch != null && !matches) {
                     matches = p.matcher(userSearch).matches();
                 }
 

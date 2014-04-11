@@ -9,14 +9,30 @@
     <test>
         <name>Bitcoin</name>
         <description>Filter on Elnot</description>
-        <user>btc</user>
-        <filter>blah blah ablah</filter>
+        <user>BTC</user>
+        <filter>To Da Moon!!</filter>
+        <isActive>false</isActive>
     </test>
     <test>
         <name>Dogecoin</name>
         <description>Shibe this Filter</description>
         <user>DOGE</user>
         <filter>One Doge is One Doge</filter>
+        <isActive>true</isActive>
+    </test>
+    <test>
+        <name>Tea Station</name>
+        <description>Little did I know</description>
+        <user>Someone</user>
+        <filter>Boba is good</filter>
+        <isActive>false</isActive>
+    </test>
+    <test>
+        <name>Litecoin</name>
+        <description>Chickun to the rise</description>
+        <user>LTC</user>
+        <filter>Rarrrrrrrrrrrrrr</filter>
+        <isActive>true</isActive>
     </test>
 
     <actor year="1928">

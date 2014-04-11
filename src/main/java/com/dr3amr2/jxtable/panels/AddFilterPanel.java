@@ -2,11 +2,17 @@ package com.dr3amr2.jxtable.panels;/*
  * Created by JFormDesigner on Mon Mar 24 12:58:44 MDT 2014
  */
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import com.jgoodies.forms.factories.*;
+import com.jgoodies.forms.factories.Borders;
+import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.*;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 
 /**
  * @author Rocky Nguyen
@@ -22,9 +28,12 @@ public class AddFilterPanel extends JDialog {
         initComponents();
     }
 
+    public JPanel getAvailableFiltersPanel() {
+        return availableFiltersPanel;
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Rocky Nguyen
         dialogPane = new JPanel();
         contentPanel = new JPanel();
         newFilterRadioButton = new JRadioButton();
@@ -34,6 +43,7 @@ public class AddFilterPanel extends JDialog {
         displayRadioButton = new JRadioButton();
         radioButton2 = new JRadioButton();
         applyToPanel = new JPanel();
+        checkBox1 = new JCheckBox();
         buttonBar = new JPanel();
         addButton = new JButton();
         cancelButton = new JButton();
@@ -48,21 +58,27 @@ public class AddFilterPanel extends JDialog {
         //======== dialogPane ========
         {
             dialogPane.setBorder(Borders.DIALOG_BORDER);
-
-            // JFormDesigner evaluation mark
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new FormLayout(
-                    "default, default:grow",
-                    "5*(default, $lgap), default"));
+                    ColumnSpec.decodeSpecs("default, default:grow"),
+                    new RowSpec[] {
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC
+                    }));
 
                 //---- newFilterRadioButton ----
                 newFilterRadioButton.setText("New");
@@ -96,6 +112,10 @@ public class AddFilterPanel extends JDialog {
                     applyToPanel.setLayout(new BorderLayout());
                 }
                 contentPanel.add(applyToPanel, cc.xywh(1, 11, 2, 1));
+
+                //---- checkBox1 ----
+                checkBox1.setText("Share Filter");
+                contentPanel.add(checkBox1, cc.xy(1, 13));
             }
             dialogPane.add(contentPanel, BorderLayout.CENTER);
 
@@ -103,8 +123,13 @@ public class AddFilterPanel extends JDialog {
             {
                 buttonBar.setBorder(Borders.BUTTON_BAR_GAP_BORDER);
                 buttonBar.setLayout(new FormLayout(
-                    "$glue, $button, $rgap, $button",
-                    "pref"));
+                    new ColumnSpec[] {
+                        FormFactory.GLUE_COLSPEC,
+                        FormFactory.BUTTON_COLSPEC,
+                        FormFactory.RELATED_GAP_COLSPEC,
+                        FormFactory.BUTTON_COLSPEC
+                    },
+                    RowSpec.decodeSpecs("pref")));
 
                 //---- addButton ----
                 addButton.setText("Add");
@@ -123,7 +148,6 @@ public class AddFilterPanel extends JDialog {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Rocky Nguyen
     private JPanel dialogPane;
     private JPanel contentPanel;
     private JRadioButton newFilterRadioButton;
@@ -133,6 +157,7 @@ public class AddFilterPanel extends JDialog {
     private JRadioButton displayRadioButton;
     private JRadioButton radioButton2;
     private JPanel applyToPanel;
+    private JCheckBox checkBox1;
     private JPanel buttonBar;
     private JButton addButton;
     private JButton cancelButton;

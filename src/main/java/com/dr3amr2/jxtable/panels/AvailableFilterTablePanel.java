@@ -177,7 +177,7 @@ public class AvailableFilterTablePanel extends JPanel {
     }
 
     //  Use SwingWorker to asynchronously load the data
-    //      specialized on FilterDataBean
+    //      specialized on IbsContact
 
 
     //------------------ init ui
@@ -256,7 +256,7 @@ public class AvailableFilterTablePanel extends JPanel {
         c.anchor = GridBagConstraints.EAST;
         c.fill = GridBagConstraints.NONE;
         winnersCheckbox = new JCheckBox();
-        winnersCheckbox.setName("winnersLabel");
+        winnersCheckbox.setText("Show only active filters");
         controlPanel.add(winnersCheckbox, c);
 
         return controlPanel;
