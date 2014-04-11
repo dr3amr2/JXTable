@@ -33,7 +33,7 @@ public class FilterRendering {
         factory.setBaseClass(resourceBase);
 
         // Section to Hide Columns
-        factory.addHiddenNames(FilterTableModel.filter_on_ID);
+        factory.addHiddenNames(FilterTableModel.active_ID);
 
         // register a custom comparator
         Comparator<IbsContact> comparator = new Comparator<IbsContact>() {
@@ -88,13 +88,13 @@ public class FilterRendering {
 
             public boolean isHighlighted(Component renderer,
                     ComponentAdapter adapter) {
-                int modelColumn = adapter.getColumnIndex(FilterTableModel.filter_on_ID);
+                int modelColumn = adapter.getColumnIndex(FilterTableModel.active_ID);
                 return ((Boolean) adapter.getValue(modelColumn)).booleanValue();
             }
 
         };
         // compound per-predicate and add as column highlighter to the factory
-        factory.addHighlighter(FilterTableModel.filter_on_ID, new CompoundHighlighter(
+        factory.addHighlighter(FilterTableModel.active_ID, new CompoundHighlighter(
                 new CompoundHighlighter(winnerPredicate, winner, winnerToolTip),
                 new CompoundHighlighter(new HighlightPredicate.NotHighlightPredicate(winnerPredicate),
                         nominee, nomineeToolTip)));

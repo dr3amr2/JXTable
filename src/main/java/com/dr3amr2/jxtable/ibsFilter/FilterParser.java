@@ -84,6 +84,12 @@ public abstract class FilterParser extends DefaultHandler {
             tempIbsContact.setUser(tempVal);
         } else if (qName.equalsIgnoreCase("filter")) {
             tempIbsContact.setFilter(tempVal);
+        } else if (qName.equalsIgnoreCase(FilterTableModel.active_ID)) {
+            if(tempVal.equalsIgnoreCase("true")){
+                tempIbsContact.setActive(true);
+            }else {
+                tempIbsContact.setActive(false);
+            }
         } else {
             // find category
             for (String category : CATEGORIES_IN) {

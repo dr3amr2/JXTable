@@ -17,22 +17,24 @@ public class FilterTableModel extends AbstractTableModel {
     public static final int DESCRIPTION_COLUMN = 1;
     public static final int USER_COLUMN = 2;
     public static final int FILTER_COLUMN = 3;
-    public static final int FILTER_ON_COLUMN = 4;
+    public static final int ACTIVE_COLUMN = 4;
     public static final int COLUMN_COUNT = 5;
 
     public static final String name_ID = "Name";
     public static final String description_ID = "Description";
     public static final String user_ID = "User";
     public static final String filter_ID = "Filter";
-    public static final String filter_on_ID = "Filter On";
+    public static final String active_ID = "isActive";
 
+    public static final String activeFilters_FireProperty = "showOnlyActive";
+    public static final String inactiveFilters_FireProperty = "showOnlyInactive";
 
     private static final String[] columnIds = {
             name_ID,
             description_ID,
             user_ID,
             filter_ID,
-            filter_on_ID
+            active_ID
     };
 
     @Override
@@ -83,8 +85,8 @@ public class FilterTableModel extends AbstractTableModel {
                 return getCandidate(row).getDescription();
             case FILTER_COLUMN:
                 return getCandidate(row).getFilter();
-            case FILTER_ON_COLUMN:
-                return getCandidate(row).isFilterOn() ? Boolean.TRUE : Boolean.FALSE;
+            case ACTIVE_COLUMN:
+                return getCandidate(row).isActive() ? Boolean.TRUE : Boolean.FALSE;
             case USER_COLUMN:
                 return getCandidate(row).getUser();
         }

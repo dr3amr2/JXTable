@@ -14,7 +14,7 @@ public class IbsContact {
     private String description;
     private String user;
     private String filter;
-    private boolean isFilterOn;
+    private boolean isActive;
     private final ArrayList<String> filters = new ArrayList<String>();
 
     /**
@@ -60,11 +60,11 @@ public class IbsContact {
         return filters;
     }
 
-    public boolean isFilterOn() {
-        return isFilterOn;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setFilterOn(boolean isFilterOn) {
-        this.isFilterOn = isFilterOn;
+    public void setActive(boolean isFilterOn) {
+        this.isActive = isFilterOn;
     }
 }

@@ -35,7 +35,7 @@ public class AvailableFilterTablePanel extends JPanel {
     private JPanel controlPanel;
     private Stacker dataPanel;
     private JXTable filterTable;
-    private JCheckBox winnersCheckbox;
+    private JCheckBox activeFiltersCheckbox;
     private JTextField filterField;
     private JComponent statusBarLeft;
     private JLabel actionStatus;
@@ -88,16 +88,18 @@ public class AvailableFilterTablePanel extends JPanel {
         filterController = new DataFiltering(filterTable);
         // bind controller properties to input components
         BindingGroup filterGroup = new BindingGroup();
+
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
-                winnersCheckbox, BeanProperty.create("selected"),
-                filterController, BeanProperty.create("showOnlyWinners")));
+                activeFiltersCheckbox, BeanProperty.create("selected"),
+                filterController, BeanProperty.create(FilterTableModel.activeFilters_FireProperty)));
+
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
                 filterField, BeanProperty.create("text"),
                 filterController, BeanProperty.create("filterString")));
         // PENDING JW: crude hack to update the statusbar - fake property
         // how-to do cleanly?
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
-                filterController, BeanProperty.create("showOnlyWinners"),
+                filterController, BeanProperty.create(FilterTableModel.activeFilters_FireProperty),
                 this, BeanProperty.create("statusContent")));
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
                 filterController, BeanProperty.create("filterString"),
@@ -255,9 +257,9 @@ public class AvailableFilterTablePanel extends JPanel {
         c.weightx = 0.0;
         c.anchor = GridBagConstraints.EAST;
         c.fill = GridBagConstraints.NONE;
-        winnersCheckbox = new JCheckBox();
-        winnersCheckbox.setText("Show only active filters");
-        controlPanel.add(winnersCheckbox, c);
+        activeFiltersCheckbox = new JCheckBox();
+        activeFiltersCheckbox.setText("Show only active filters");
+        controlPanel.add(activeFiltersCheckbox, c);
 
         return controlPanel;
     }

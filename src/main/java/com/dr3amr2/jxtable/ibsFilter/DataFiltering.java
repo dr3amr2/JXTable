@@ -12,11 +12,11 @@ import java.util.regex.Pattern;
 
 
 public class DataFiltering extends AbstractBean {
-    private RowFilter<TableModel, Integer> winnerFilter;
+    private RowFilter<TableModel, Integer> activeFilter;
     private RowFilter<TableModel, Integer> searchFilter;
 
     private String filterString;
-    private boolean showOnlyWinners = false;
+    private boolean showOnlyActive = false;
     private JXTable filterTable;
 
 
@@ -53,26 +53,26 @@ public class DataFiltering extends AbstractBean {
     }
 
     /**
-     * @param showOnlyWinners the showOnlyWinners to set
+     * @param showOnlyActive the showOnlyActive to set
      */
-    public void setShowOnlyWinners(boolean showOnlyWinners) {
-        if (isShowOnlyWinners() == showOnlyWinners) return;
-        boolean oldValue = isShowOnlyWinners();
-        this.showOnlyWinners = showOnlyWinners;
-        updateWinnerFilter();
-        firePropertyChange("showOnlyWinners", oldValue, isShowOnlyWinners());
+    public void setShowOnlyActive(boolean showOnlyActive) {
+        if (isShowOnlyActive() == showOnlyActive) return;
+        boolean oldValue = isShowOnlyActive();
+        this.showOnlyActive = showOnlyActive;
+        updateActiveFilter();
+        firePropertyChange(FilterTableModel.activeFilters_FireProperty, oldValue, isShowOnlyActive());
     }
 
     /**
-     * @return the showOnlyWinners
+     * @return the showOnlyActive
      */
-    public boolean isShowOnlyWinners() {
-        return showOnlyWinners;
+    public boolean isShowOnlyActive() {
+        return showOnlyActive;
     }
 
 
-    private void updateWinnerFilter() {
-        winnerFilter = showOnlyWinners ? createWinnerFilter() : null;
+    private void updateActiveFilter() {
+        activeFilter = showOnlyActive ? createActiveFilter() : null;
         updateFilters();
     }
 
@@ -89,10 +89,10 @@ public class DataFiltering extends AbstractBean {
     private void updateFilters() {
         //  Filter control
         //      set the filters to the table
-        if ((searchFilter != null) && (winnerFilter != null)) {
+        if ((searchFilter != null) && (activeFilter != null)) {
             List<RowFilter<TableModel, Integer>> filters =
-                    new ArrayList<RowFilter<TableModel, Integer>>(2);
-            filters.add(winnerFilter);
+                    new ArrayList<>(2);
+            filters.add(activeFilter);
             filters.add(searchFilter);
             RowFilter<TableModel, Integer> comboFilter = RowFilter.andFilter(filters);
             filterTable.setRowFilter(comboFilter);
@@ -101,19 +101,19 @@ public class DataFiltering extends AbstractBean {
 
                 filterTable.setRowFilter(searchFilter);
             } else {
-                filterTable.setRowFilter(winnerFilter);
+                filterTable.setRowFilter(activeFilter);
             }
         }
     }
 
 
-    private RowFilter<TableModel, Integer> createWinnerFilter() {
+    private RowFilter<TableModel, Integer> createActiveFilter() {
         return new RowFilter<TableModel, Integer>() {
             @Override
             public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
                 FilterTableModel filterTableModel = (FilterTableModel) entry.getModel();
-                IbsContact candidate = filterTableModel.getCandidate((Integer) entry.getIdentifier());
-                if (candidate.isFilterOn()) {
+                IbsContact candidate = filterTableModel.getCandidate(entry.getIdentifier());
+                if (candidate.isActive()) {
                     // Returning true indicates this row should be shown.
                     return true;
                 }
@@ -131,7 +131,7 @@ public class DataFiltering extends AbstractBean {
             public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
                 FilterTableModel filterTableModel = (FilterTableModel) entry.getModel();
                 IbsContact contact;
-                contact = filterTableModel.getCandidate((Integer) entry.getIdentifier());
+                contact = filterTableModel.getCandidate(entry.getIdentifier());
                 boolean matches = false;
                 Pattern p = Pattern.compile(filterString + ".*", Pattern.CASE_INSENSITIVE);
 
