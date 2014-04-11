@@ -40,16 +40,16 @@ public class FilterTableModel extends AbstractTableModel {
         return columnIds[column];
     }
 
-    private final List<FilterDataBean> filterList = new ArrayList<FilterDataBean>();
+    private final List<IbsContact> filterList = new ArrayList<IbsContact>();
 
-    public void add(List<FilterDataBean> newFilters) {
+    public void add(List<IbsContact> newFilters) {
         int first = filterList.size();
         int last = first + newFilters.size() - 1;
         filterList.addAll(newFilters);
         fireTableRowsInserted(first, last);
     }
 
-    public void add(FilterDataBean filter) {
+    public void add(IbsContact filter) {
         int index = this.filterList.size();
         this.filterList.add(filter);
         fireTableRowsInserted(index, index);
@@ -68,7 +68,7 @@ public class FilterTableModel extends AbstractTableModel {
         return getValueAt(0, column).getClass();
     }
 
-    public FilterDataBean getCandidate(int row) {
+    public IbsContact getCandidate(int row) {
         return filterList.get(row);
     }
 

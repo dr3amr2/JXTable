@@ -13,16 +13,16 @@ import java.util.List;
 /**
  * Created by dnguyen on 3/27/2014.
  */
-public class FilterDataLoader extends SwingWorker<List<FilterDataBean>, FilterDataBean> {
-    private final URL oscarData;
-    private final FilterTableModel oscarModel;
-    private final List<FilterDataBean> candidates = new ArrayList<FilterDataBean>();
+public class FilterDataLoader extends SwingWorker<List<IbsContact>, IbsContact> {
+    private final URL filterDataURL;
+    private final FilterTableModel filterTableModel;
+    private final List<IbsContact> contacts = new ArrayList<IbsContact>();
     private final Stacker dataPanel;
     private JLabel credits;
 
     public FilterDataLoader(URL filterURL, FilterTableModel filterTableModel, Stacker dataPanel) {
-        this.oscarData = filterURL;
-        this.oscarModel = filterTableModel;
+        this.filterDataURL = filterURL;
+        this.filterTableModel = filterTableModel;
         this.dataPanel = dataPanel;
     }
 
@@ -30,44 +30,44 @@ public class FilterDataLoader extends SwingWorker<List<FilterDataBean>, FilterDa
     // background task let a parser do its stuff and
     // update a progress bar
     @Override
-    public List<FilterDataBean> doInBackground() {
+    public List<IbsContact> doInBackground() {
         FilterParser parser = new FilterParser() {
             @Override
-            protected void addCandidate(FilterDataBean candidate) {
-                candidates.add(candidate);
-                if (candidates.size() % 3 == 0) {
+            protected void addCandidate(IbsContact contact) {
+                contacts.add(contact);
+                if (contacts.size() % 3 == 0) {
                     try { // slow it down so we can see progress :-)
                         Thread.sleep(1);
                     } catch (Exception ex) {
                     }
                 }
-                publish(candidate);
-                setProgress(100 * candidates.size() / 8545);
+                publish(contact);
+                setProgress(100 * contacts.size() / 8545);
             }
         };
-        parser.parseDocument(oscarData);
-        return candidates;
+        parser.parseDocument(filterDataURL);
+        return contacts;
     }
     //        </snip>
 
     @Override
-    protected void process(List<FilterDataBean> moreCandidates) {
+    protected void process(List<IbsContact> moreContacts) {
         if (credits == null) {
             showCredits();
         }
-        oscarModel.add(moreCandidates);
+        filterTableModel.add(moreContacts);
     }
 
     // For older Java 6 on OS X
     @SuppressWarnings("unused")
-    protected void process(FilterDataBean... moreCandidates) {
-        for (FilterDataBean candidate : moreCandidates) {
-            oscarModel.add(candidate);
+    protected void process(IbsContact... moreContacts) {
+        for (IbsContact contact : moreContacts) {
+            filterTableModel.add(contact);
         }
     }
 
-    //>Use SwingWorker to asynchronously load the data
-    // show a transparent overlay on start loading
+    //  Use SwingWorker to asynchronously load the data
+    //      show a transparent overlay on start loading
     private void showCredits() {
         credits = new JLabel();
         credits.setName("credits");
