@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contacts>
+    <contact>
+        <name>Bitcoin</name>
+        <description>Filter on Elnot</description>
+        <user>BTC</user>
+        <filter>To Da Moon!!</filter>
+        <isActive>false</isActive>
+    </contact>
+    <contact>
+        <name>Dogecoin</name>
+        <description>Shibe this Filter</description>
+        <user>DOGE</user>
+        <filter>One Doge is One Doge</filter>
+        <isActive>true</isActive>
+    </contact>
+    <contact>
+        <name>Tea Station</name>
+        <description>Little did I know</description>
+        <user>Someone</user>
+        <filter>Boba is good</filter>
+        <isActive>false</isActive>
+    </contact>
+    <contact>
+        <name>Litecoin</name>
+        <description>Chickun to the rise</description>
+        <user>LTC</user>
+        <filter>Rarrrrrrrrrrrrrr</filter>
+        <isActive>true</isActive>
+    </contact>
+
+</contacts>

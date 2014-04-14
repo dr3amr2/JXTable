@@ -20,11 +20,11 @@ public abstract class FilterParser extends DefaultHandler {
     static final Logger logger = Logger.getLogger(FilterParser.class.getName());
 
     private static final String[] CATEGORIES_IN = {
-            "test"
+            "test", "contact"
     };
 
     private static final String[] CATEGORIES_OUT = {
-            "Test"
+            "Test", "Contact"
     };
 
 
