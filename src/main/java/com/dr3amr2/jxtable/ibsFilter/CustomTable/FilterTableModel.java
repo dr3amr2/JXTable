@@ -30,6 +30,9 @@ public class FilterTableModel extends AbstractTableModel {
 
     public static final String activeFilters_FireProperty = "showOnlyActive";
     public static final String inactiveFilters_FireProperty = "showOnlyInactive";
+    public static final String statusContent_FireProperty = "statusContent";
+    public static final String filterString_FireProperty = "filterString";
+
 
     private static final String[] columnIds = {
             name_ID,

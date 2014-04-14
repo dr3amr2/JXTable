@@ -103,16 +103,16 @@ public class FilterController {
 
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
                 panel.filterField, BeanProperty.create("text"),
-                filterTableController, BeanProperty.create("filterString")));
+                filterTableController, BeanProperty.create(FilterTableModel.filterString_FireProperty)));
         // PENDING JW: crude hack to update the statusbar - fake property
         // how-to do cleanly?
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
                 filterTableController, BeanProperty.create(FilterTableModel.activeFilters_FireProperty),
-                this, BeanProperty.create("statusContent")));
+                this, BeanProperty.create(FilterTableModel.statusContent_FireProperty)));
 
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
-                filterTableController, BeanProperty.create("filterString"),
-                this, BeanProperty.create("statusContent")));
+                filterTableController, BeanProperty.create(FilterTableModel.filterString_FireProperty),
+                this, BeanProperty.create(FilterTableModel.statusContent_FireProperty)));
         filterGroup.bind();
 
         filterTableModel.addTableModelListener(new TableModelListener() {
