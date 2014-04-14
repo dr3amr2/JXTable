@@ -42,7 +42,7 @@ public class FilterTableModel extends AbstractTableModel {
         return columnIds[column];
     }
 
-    private final List<IbsContact> filterList = new ArrayList<IbsContact>();
+    private final List<IbsContact> filterList = new ArrayList<>();
 
     public void add(List<IbsContact> newFilters) {
         int first = filterList.size();

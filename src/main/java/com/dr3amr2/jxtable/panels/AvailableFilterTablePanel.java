@@ -5,12 +5,13 @@ package com.dr3amr2.jxtable.panels; /**
 import com.dr3amr2.jxtable.ibsFilter.DataFiltering;
 import com.dr3amr2.jxtable.ibsFilter.FilterDataLoader;
 import com.dr3amr2.jxtable.ibsFilter.FilterRendering;
-import com.dr3amr2.jxtable.utils.Stacker;
 import com.dr3amr2.jxtable.ibsFilter.FilterTableModel;
 import com.dr3amr2.jxtable.utils.CustomColumnFactory;
+import com.dr3amr2.jxtable.utils.Stacker;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.Bindings;
+import org.jdesktop.swingx.JXSearchField;
 import org.jdesktop.swingx.JXStatusBar;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTableHeader;
@@ -36,7 +37,8 @@ public class AvailableFilterTablePanel extends JPanel {
     private Stacker dataPanel;
     private JXTable filterTable;
     private JCheckBox activeFiltersCheckbox;
-    private JTextField filterField;
+    private JCheckBox nonActiveFiltersCheckbox;
+    private JXSearchField filterField;
     private JComponent statusBarLeft;
     private JLabel actionStatus;
     private JLabel tableStatus;
@@ -246,7 +248,10 @@ public class AvailableFilterTablePanel extends JPanel {
         c.insets.bottom = 12;
         c.anchor = GridBagConstraints.SOUTHWEST;
         //c.fill = GridBagConstraints.HORIZONTAL;
-        filterField = new JTextField(24);
+        filterField = new JXSearchField();
+        filterField.setPrompt("  Search Filters");
+        filterField.setPreferredSize(new Dimension(250, 24));
+
         controlPanel.add(filterField, c);
 
         c.gridx = 1;
@@ -260,6 +265,10 @@ public class AvailableFilterTablePanel extends JPanel {
         activeFiltersCheckbox = new JCheckBox();
         activeFiltersCheckbox.setText("Show only active filters");
         controlPanel.add(activeFiltersCheckbox, c);
+
+        nonActiveFiltersCheckbox = new JCheckBox();
+        nonActiveFiltersCheckbox.setText("Show only non-active filters");
+        controlPanel.add(nonActiveFiltersCheckbox, c);
 
         return controlPanel;
     }

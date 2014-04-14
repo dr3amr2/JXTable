@@ -51,53 +51,51 @@ public class FilterRendering {
 
         // add hints for column sizing
         IbsContact prototype = new IbsContact("IBS Filters");
-//        prototype.getFilters().add("some unusually name or what am I talking about");
-//        prototype.setName("Testing Name");
-//        prototype.setDescription("Here's a random description");
+
         factory.addPrototypeValue(FilterTableModel.name_ID, prototype.getName());
         factory.addPrototypeValue(FilterTableModel.description_ID, prototype.getDescription());
         factory.addPrototypeValue(FilterTableModel.filter_ID, prototype.getFilter());
         factory.addPrototypeValue(FilterTableModel.user_ID, prototype.getUser());
 
         // register component providers per column identifier
-        factory.addComponentProvider(FilterTableModel.name_ID, new LabelProvider(JLabel.CENTER));
-        factory.addComponentProvider(FilterTableModel.description_ID, new LabelProvider(JLabel.CENTER));
-        factory.addComponentProvider(FilterTableModel.user_ID, new LabelProvider(JLabel.CENTER));
+        factory.addComponentProvider(FilterTableModel.name_ID, new LabelProvider(JLabel.LEFT));
+        factory.addComponentProvider(FilterTableModel.description_ID, new LabelProvider(JLabel.LEFT));
+        factory.addComponentProvider(FilterTableModel.user_ID, new LabelProvider(JLabel.LEFT));
 
         // Visual Decorators
         // .... and more
 
         // ToolTips for nominees column
-        int iconSize = 16;
-        ImageIcon winnerIconRaw = new ImageIcon(ImageUtils.getImageFromResources("/icons/on.png"));
-        Icon winnerIcon = new ImageIcon(ImageUtils.getScaledInstance((BufferedImage) winnerIconRaw.getImage(), iconSize));
+        int iconSize = 24;
+        ImageIcon activeFilterIconRaw = new ImageIcon(ImageUtils.getImageFromResources("/icons/on.png"));
+        Icon activeFilterIcon = new ImageIcon(ImageUtils.getScaledInstance((BufferedImage) activeFilterIconRaw.getImage(), iconSize));
 
-        ImageIcon nomineeIconRaw = new ImageIcon(ImageUtils.getImageFromResources("/icons/off.png"));
-        Icon nomineeIcon = new ImageIcon(ImageUtils.getScaledInstance((BufferedImage) nomineeIconRaw.getImage(), iconSize));
+        ImageIcon nonActiveFilterIconRaw = new ImageIcon(ImageUtils.getImageFromResources("/icons/off.png"));
+        Icon nonActiveFilterIcon = new ImageIcon(ImageUtils.getScaledInstance((BufferedImage) nonActiveFilterIconRaw.getImage(), iconSize));
 
-        // Icon and tool tip decorator for winners
-        IconHighlighter winner = new IconHighlighter(winnerIcon);
-        ToolTipHighlighter winnerToolTip = new ToolTipHighlighter();
-        winnerToolTip.addStringValue(new ListStringValue(true, "Winner!", "Winners: "), FilterTableModel.name_ID);
+        // Icon and tool tip decorator for active/non-active fitlers
+        IconHighlighter activeIconHighlighter = new IconHighlighter(activeFilterIcon);
+        ToolTipHighlighter activeFilterToolTip = new ToolTipHighlighter();
+        activeFilterToolTip.addStringValue(new ListStringValue(true, "Active Filter", null), FilterTableModel.name_ID);
         // Icon and tool tip decorators for nominees
-        IconHighlighter nominee = new IconHighlighter(nomineeIcon);
-        ToolTipHighlighter nomineeToolTip = new ToolTipHighlighter();
-        nomineeToolTip.addStringValue(new ListStringValue(true, "Nominee", "Nominees: "), FilterTableModel.name_ID);
+        IconHighlighter nonActiveIconHighlighter = new IconHighlighter(nonActiveFilterIcon);
+        ToolTipHighlighter nonActiveFilterToolTip = new ToolTipHighlighter();
+        nonActiveFilterToolTip.addStringValue(new ListStringValue(true, "Non-Active Filter", null), FilterTableModel.name_ID);
         // the predicate to decide which to use
-        HighlightPredicate winnerPredicate = new HighlightPredicate() {
+        HighlightPredicate activeFilterPredicate = new HighlightPredicate() {
 
             public boolean isHighlighted(Component renderer,
                     ComponentAdapter adapter) {
                 int modelColumn = adapter.getColumnIndex(FilterTableModel.active_ID);
-                return ((Boolean) adapter.getValue(modelColumn)).booleanValue();
+                return (Boolean) adapter.getValue(modelColumn);
             }
 
         };
         // compound per-predicate and add as column highlighter to the factory
-        factory.addHighlighter(FilterTableModel.active_ID, new CompoundHighlighter(
-                new CompoundHighlighter(winnerPredicate, winner, winnerToolTip),
-                new CompoundHighlighter(new HighlightPredicate.NotHighlightPredicate(winnerPredicate),
-                        nominee, nomineeToolTip)));
+        factory.addHighlighter(FilterTableModel.name_ID, new CompoundHighlighter(
+                new CompoundHighlighter(activeFilterPredicate, activeIconHighlighter, activeFilterToolTip),
+                new CompoundHighlighter(new HighlightPredicate.NotHighlightPredicate(activeFilterPredicate),
+                        nonActiveIconHighlighter, nonActiveFilterToolTip)));
     }
 
 //----------------- not special to OscarRendering, but still missing in SwingX :-)

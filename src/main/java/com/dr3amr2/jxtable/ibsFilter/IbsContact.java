@@ -15,7 +15,7 @@ public class IbsContact {
     private String user;
     private String filter;
     private boolean isActive;
-    private final ArrayList<String> filters = new ArrayList<String>();
+    private final ArrayList<String> filters = new ArrayList<>();
 
     /**
      * Creates a new instance of IbsContact

@@ -38,7 +38,7 @@ public class FilterDataLoader extends SwingWorker<List<IbsContact>, IbsContact> 
                 if (contacts.size() % 3 == 0) {
                     try { // slow it down so we can see progress :-)
                         Thread.sleep(1);
-                    } catch (Exception ex) {
+                    } catch (Exception ignored) {
                     }
                 }
                 publish(contact);
