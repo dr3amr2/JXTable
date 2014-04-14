@@ -1,6 +1,8 @@
-package com.dr3amr2.jxtable.ibsFilter; /**
+package com.dr3amr2.jxtable.ibsFilter.CustomTable; /**
  * Created by dnguyen on 3/24/14.
  */
+
+import com.dr3amr2.jxtable.ibsFilter.FilterModel;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -42,16 +44,16 @@ public class FilterTableModel extends AbstractTableModel {
         return columnIds[column];
     }
 
-    private final List<IbsContact> filterList = new ArrayList<>();
+    private final List<FilterModel> filterList = new ArrayList<>();
 
-    public void add(List<IbsContact> newFilters) {
+    public void add(List<FilterModel> newFilters) {
         int first = filterList.size();
         int last = first + newFilters.size() - 1;
         filterList.addAll(newFilters);
         fireTableRowsInserted(first, last);
     }
 
-    public void add(IbsContact filter) {
+    public void add(FilterModel filter) {
         int index = this.filterList.size();
         this.filterList.add(filter);
         fireTableRowsInserted(index, index);
@@ -70,7 +72,7 @@ public class FilterTableModel extends AbstractTableModel {
         return getValueAt(0, column).getClass();
     }
 
-    public IbsContact getCandidate(int row) {
+    public FilterModel getCandidate(int row) {
         return filterList.get(row);
     }
 

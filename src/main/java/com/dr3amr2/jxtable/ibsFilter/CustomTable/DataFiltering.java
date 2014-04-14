@@ -1,6 +1,7 @@
-package com.dr3amr2.jxtable.ibsFilter; /**
+package com.dr3amr2.jxtable.ibsFilter.CustomTable; /**
 * Created by dnguyen on 3/24/14.
 */
+import com.dr3amr2.jxtable.ibsFilter.FilterModel;
 import org.jdesktop.beans.AbstractBean;
 import org.jdesktop.swingx.JXTable;
 
@@ -112,7 +113,7 @@ public class DataFiltering extends AbstractBean {
             @Override
             public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
                 FilterTableModel filterTableModel = (FilterTableModel) entry.getModel();
-                IbsContact candidate = filterTableModel.getCandidate(entry.getIdentifier());
+                FilterModel candidate = filterTableModel.getCandidate(entry.getIdentifier());
                 if (candidate.isActive()) {
                     // Returning true indicates this row should be shown.
                     return true;
@@ -124,13 +125,13 @@ public class DataFiltering extends AbstractBean {
     }
 
     //  Filter control
-    //      create and return a custom RowFilter specialized on IbsContact
+    //      create and return a custom RowFilter specialized on FilterModel
     private RowFilter<TableModel, Integer> createSearchFilter(final String filterString) {
         return new RowFilter<TableModel, Integer>() {
             @Override
             public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {
                 FilterTableModel filterTableModel = (FilterTableModel) entry.getModel();
-                IbsContact contact;
+                FilterModel contact;
                 contact = filterTableModel.getCandidate(entry.getIdentifier());
                 boolean matches = false;
                 Pattern p = Pattern.compile(filterString + ".*", Pattern.CASE_INSENSITIVE);

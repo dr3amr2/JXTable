@@ -2,10 +2,10 @@ package com.dr3amr2.jxtable.panels; /**
 * Created by dnguyen on 3/24/14.
 */
 
-import com.dr3amr2.jxtable.ibsFilter.DataFiltering;
-import com.dr3amr2.jxtable.ibsFilter.FilterDataLoader;
-import com.dr3amr2.jxtable.ibsFilter.FilterRendering;
-import com.dr3amr2.jxtable.ibsFilter.FilterTableModel;
+import com.dr3amr2.jxtable.ibsFilter.CustomTable.DataFiltering;
+import com.dr3amr2.jxtable.ibsFilter.CustomTable.FilterDataLoader;
+import com.dr3amr2.jxtable.ibsFilter.CustomTable.FilterRendering;
+import com.dr3amr2.jxtable.ibsFilter.CustomTable.FilterTableModel;
 import com.dr3amr2.jxtable.utils.CustomColumnFactory;
 import com.dr3amr2.jxtable.utils.Stacker;
 import org.jdesktop.beansbinding.BeanProperty;
@@ -181,7 +181,7 @@ public class AvailableFilterTablePanel extends JPanel {
     }
 
     //  Use SwingWorker to asynchronously load the data
-    //      specialized on IbsContact
+    //      specialized on FilterModel
 
 
     //------------------ init ui

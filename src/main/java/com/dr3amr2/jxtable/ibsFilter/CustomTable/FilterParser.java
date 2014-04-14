@@ -1,5 +1,6 @@
-package com.dr3amr2.jxtable.ibsFilter;
+package com.dr3amr2.jxtable.ibsFilter.CustomTable;
 
+import com.dr3amr2.jxtable.ibsFilter.FilterModel;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -30,7 +31,7 @@ public abstract class FilterParser extends DefaultHandler {
     private String tempVal;
 
     //to maintain context
-    private IbsContact tempIbsContact;
+    private FilterModel tempIbsContact;
         
     private int count = 0;
     
@@ -63,7 +64,7 @@ public abstract class FilterParser extends DefaultHandler {
         tempVal = "";
         for (int i = 0; i < CATEGORIES_IN.length; i++) {
             if (qName.equalsIgnoreCase(CATEGORIES_IN[i])) {
-                tempIbsContact = new IbsContact(CATEGORIES_OUT[i]);
+                tempIbsContact = new FilterModel(CATEGORIES_OUT[i]);
                 return;
             }
         }
@@ -123,6 +124,6 @@ public abstract class FilterParser extends DefaultHandler {
         logger.log(Level.FINER, "parsed to end of ibs filter data.");
     }
 
-    protected abstract void addCandidate(IbsContact candidate);
+    protected abstract void addCandidate(FilterModel candidate);
 }
 

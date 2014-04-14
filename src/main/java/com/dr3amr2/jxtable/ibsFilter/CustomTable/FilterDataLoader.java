@@ -1,5 +1,6 @@
-package com.dr3amr2.jxtable.ibsFilter;
+package com.dr3amr2.jxtable.ibsFilter.CustomTable;
 
+import com.dr3amr2.jxtable.ibsFilter.FilterModel;
 import com.dr3amr2.jxtable.utils.Stacker;
 
 import javax.swing.*;
@@ -13,10 +14,10 @@ import java.util.List;
 /**
  * Created by dnguyen on 3/27/2014.
  */
-public class FilterDataLoader extends SwingWorker<List<IbsContact>, IbsContact> {
+public class FilterDataLoader extends SwingWorker<List<FilterModel>, FilterModel> {
     private final URL filterDataURL;
     private final FilterTableModel filterTableModel;
-    private final List<IbsContact> contacts = new ArrayList<IbsContact>();
+    private final List<FilterModel> contacts = new ArrayList<FilterModel>();
     private final Stacker dataPanel;
     private JLabel credits;
 
@@ -30,10 +31,10 @@ public class FilterDataLoader extends SwingWorker<List<IbsContact>, IbsContact> 
     // background task let a parser do its stuff and
     // update a progress bar
     @Override
-    public List<IbsContact> doInBackground() {
+    public List<FilterModel> doInBackground() {
         FilterParser parser = new FilterParser() {
             @Override
-            protected void addCandidate(IbsContact contact) {
+            protected void addCandidate(FilterModel contact) {
                 contacts.add(contact);
                 if (contacts.size() % 3 == 0) {
                     try { // slow it down so we can see progress :-)
@@ -51,7 +52,7 @@ public class FilterDataLoader extends SwingWorker<List<IbsContact>, IbsContact> 
     //        </snip>
 
     @Override
-    protected void process(List<IbsContact> moreContacts) {
+    protected void process(List<FilterModel> moreContacts) {
         if (credits == null) {
             showCredits();
         }
@@ -60,8 +61,8 @@ public class FilterDataLoader extends SwingWorker<List<IbsContact>, IbsContact> 
 
     // For older Java 6 on OS X
     @SuppressWarnings("unused")
-    protected void process(IbsContact... moreContacts) {
-        for (IbsContact contact : moreContacts) {
+    protected void process(FilterModel... moreContacts) {
+        for (FilterModel contact : moreContacts) {
             filterTableModel.add(contact);
         }
     }

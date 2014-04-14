@@ -8,7 +8,7 @@ import java.util.List;
  *
  *
  */
-public class IbsContact {
+public class FilterModel {
 
     private String name;
     private String description;
@@ -18,9 +18,9 @@ public class IbsContact {
     private final ArrayList<String> filters = new ArrayList<>();
 
     /**
-     * Creates a new instance of IbsContact
+     * Creates a new instance of FilterModel
      */
-    public IbsContact(String name) {
+    public FilterModel(String name) {
         this.name = name;
     }
 

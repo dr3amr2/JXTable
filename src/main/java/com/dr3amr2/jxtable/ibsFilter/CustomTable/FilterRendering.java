@@ -2,8 +2,9 @@
 * Created on 08.04.2008
 *
 */
-package com.dr3amr2.jxtable.ibsFilter;
+package com.dr3amr2.jxtable.ibsFilter.CustomTable;
 
+import com.dr3amr2.jxtable.ibsFilter.FilterModel;
 import com.dr3amr2.jxtable.utils.CustomColumnFactory;
 import com.dr3amr2.jxtable.utils.ImageUtils;
 import org.jdesktop.swingx.decorator.*;
@@ -36,9 +37,9 @@ public class FilterRendering {
         factory.addHiddenNames(FilterTableModel.active_ID);
 
         // register a custom comparator
-        Comparator<IbsContact> comparator = new Comparator<IbsContact>() {
+        Comparator<FilterModel> comparator = new Comparator<FilterModel>() {
 
-            public int compare(IbsContact o1, IbsContact o2) {
+            public int compare(FilterModel o1, FilterModel o2) {
                 String contact1 = o1.getFilter();
                 String contact2 = o2.getFilter();
                 if (contact1 == null) return -1;
@@ -50,7 +51,7 @@ public class FilterRendering {
         factory.addComparator(FilterTableModel.filter_ID, comparator);
 
         // add hints for column sizing
-        IbsContact prototype = new IbsContact("IBS Filters");
+        FilterModel prototype = new FilterModel("IBS Filters");
 
         factory.addPrototypeValue(FilterTableModel.name_ID, prototype.getName());
         factory.addPrototypeValue(FilterTableModel.description_ID, prototype.getDescription());
