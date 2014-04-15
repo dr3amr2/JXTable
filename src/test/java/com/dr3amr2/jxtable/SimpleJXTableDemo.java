@@ -6,7 +6,6 @@ package com.dr3amr2.jxtable; /**
  * SimpleTableDemo in the Swing tutorial.
  */
 
-import com.dr3amr2.jxtable.model.SampleTableModel;
 import org.jdesktop.swingx.JXFrame;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.action.AbstractActionExt;

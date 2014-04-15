@@ -1,4 +1,4 @@
-package com.dr3amr2.jxtable.model;
+package com.dr3amr2.jxtable;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.InputStreamReader;
