@@ -37,9 +37,7 @@ public  class CustomColumnFactory extends ColumnFactory {
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger
             .getLogger(CustomColumnFactory.class.getName());
-    /** base class for resource lookup. */
-    private Class<?> baseClass;
-    
+
     /**
      * {@inheritDoc} <p>
      * Overridden to not create columns for the model columns which are 
@@ -54,7 +52,6 @@ public  class CustomColumnFactory extends ColumnFactory {
         return super.createAndConfigureTableColumn(model, modelIndex);
     }
 
-    //<snip> JXTable column properties
     /**
      * {@inheritDoc} <p>
      * 
@@ -80,9 +77,9 @@ public  class CustomColumnFactory extends ColumnFactory {
             columnExt.setVisible(false);
         }
     }
-//    </snip>
+
     private void configureTitle(TableColumnExt columnExt) {
-//        columnExt.setTitle(DemoUtils.getResourceString(baseClass, columnExt.getIdentifier().toString()));
+        //  columnExt.setTitle(DemoUtils.getResourceString(baseClass, columnExt.getIdentifier().toString()));
     }
     
     /**
@@ -122,7 +119,8 @@ public  class CustomColumnFactory extends ColumnFactory {
     }
 
     public void setBaseClass(Class<?> baseClass) {
-        this.baseClass = baseClass;
+        /* base class for resource lookup. */
+        Class<?> baseClass1 = baseClass;
     }
     
     public void addComponentProvider(Object id, ComponentProvider<?> provider) {
@@ -152,21 +150,21 @@ public  class CustomColumnFactory extends ColumnFactory {
 
     private List<Object> getExcludeNames() {
         if (excludes == null) {
-            excludes = new ArrayList<Object>();
+            excludes = new ArrayList<>();
         }
         return excludes;
     }
     
     private List<Object> getHiddenNames() {
         if (hidden == null) {
-            hidden = new ArrayList<Object>();
+            hidden = new ArrayList<>();
         }
         return hidden;
     }
     
     private Map<Object, ComponentProvider<?>> getComponentProviders() {
         if (componentProviders == null) {
-            componentProviders = new HashMap<Object, ComponentProvider<?>>();
+            componentProviders = new HashMap<>();
         }
         return componentProviders;
     }
@@ -177,7 +175,7 @@ public  class CustomColumnFactory extends ColumnFactory {
     
     private Map<Object, Object> getPrototypeValues() {
         if (prototypes == null) {
-            prototypes = new HashMap<Object, Object>();
+            prototypes = new HashMap<>();
         }
         return prototypes;
     }
@@ -188,7 +186,7 @@ public  class CustomColumnFactory extends ColumnFactory {
     
     private Map<Object, Highlighter> getHighlighters() {
         if (highlighters == null) {
-            highlighters = new HashMap<Object, Highlighter>();
+            highlighters = new HashMap<>();
         }
         return highlighters;
     }
@@ -199,7 +197,7 @@ public  class CustomColumnFactory extends ColumnFactory {
     
     private Map<Object, Comparator<?>> getComparators() {
         if (comparators == null) {
-            comparators = new HashMap<Object, Comparator<?>>();
+            comparators = new HashMap<>();
         }
         return comparators;
     }

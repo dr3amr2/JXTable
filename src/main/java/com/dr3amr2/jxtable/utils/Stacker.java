@@ -1,6 +1,4 @@
-package com.dr3amr2.jxtable.utils; /**
- * Created by dnguyen on 3/24/14.
- */
+package com.dr3amr2.jxtable.utils;
 
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.interpolation.PropertySetter;

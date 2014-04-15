@@ -1,6 +1,4 @@
-package com.dr3amr2.jxtable.ibsFilter.CustomTable; /**
- * Created by dnguyen on 3/24/14.
- */
+package com.dr3amr2.jxtable.ibsFilter.CustomTable;
 
 import com.dr3amr2.jxtable.ibsFilter.FilterModel;
 
@@ -9,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Data model for filterList data: a list of filterList beans.
+ * FilterTableModel class holds all the data related model for the JXTable
  *
  * @author dnguyen
  */

@@ -9,9 +9,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * @author Proprietary information subject to the terms of a Non-Disclosure Agreement
- */
 public class ImageUtils
 {
     private static final Logger logger = Logger.getLogger(ImageUtils.class);
@@ -29,6 +26,7 @@ public class ImageUtils
         return null;
     }
 
+    @SuppressWarnings("unused")
     public static void saveImage(BufferedImage image, String imageFilename)
     {
         try
@@ -43,6 +41,7 @@ public class ImageUtils
         }
     }
 
+    @SuppressWarnings("unused")
     public static BufferedImage loadImageBounded(String imageFilename, int maxSize)
     {
         BufferedImage image = loadImage(imageFilename);
@@ -84,6 +83,7 @@ public class ImageUtils
         return null;
     }
 
+    @SuppressWarnings("unused")
     public static ImageIcon getSizedImageIcon(String imageName, int size)
     {
         BufferedImage image = getImageFromResources(imageName);
@@ -98,6 +98,7 @@ public class ImageUtils
         return new ImageIcon(image);
     }
 
+    @SuppressWarnings("unused")
     public static ImageIcon getImageIcon(String iconFilename)
     {
         BufferedImage image = getImageFromResources(iconFilename);
@@ -110,6 +111,7 @@ public class ImageUtils
         return null;
     }
 
+    @SuppressWarnings("unused")
     public static Color brighter(Color c, double factor)
     {
         int r = c.getRed();
@@ -135,6 +137,7 @@ public class ImageUtils
                 Math.min((int) (b / factor), 255));
     }
 
+    @SuppressWarnings("unused")
     public static Color darker(Color c, double factor)
     {
         return new Color(Math.max((int) (c.getRed() * factor), 0),
@@ -153,6 +156,7 @@ public class ImageUtils
      *              c1, 0.0 will return c2 and so on.
      * @return Blended color.
      */
+    @SuppressWarnings("unused")
     public static Color blend(Color c1, Color c2, double ratio)
     {
         float r = (float) ratio;
@@ -176,6 +180,7 @@ public class ImageUtils
      *                     greater than or equal to this threshold.
      * @return a randomly-generated color.
      */
+    @SuppressWarnings("unused")
     public static Color generateRandomColor(int lowThreshold)
     {
         int range = 256 - lowThreshold;
@@ -185,6 +190,7 @@ public class ImageUtils
         return new Color(r, g, b);
     }
 
+    @SuppressWarnings("unused")
     public static Color generateRandomColor(int lowThreshold, int highThreshold)
     {
         int range = highThreshold - lowThreshold;
@@ -238,6 +244,7 @@ public class ImageUtils
         return scaledVersion;
     }
 
+    @SuppressWarnings("unused")
     public static BufferedImage getHighQualityScaledInstance(BufferedImage img, int targetWidth, int targetHeight)
     {
         // Use a proportional height if the parameter is a -1

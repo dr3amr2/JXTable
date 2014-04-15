@@ -9,10 +9,13 @@ import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 
 public class DataFiltering extends AbstractBean {
+    private final Logger logger = Logger.getLogger(DataFiltering.class.getName());
+
     private RowFilter<TableModel, Integer> activeFilter;
     private RowFilter<TableModel, Integer> inactiveFilter;
     private RowFilter<TableModel, Integer> searchFilter;
@@ -40,6 +43,7 @@ public class DataFiltering extends AbstractBean {
     /**
      * @param filterString the filterString to set
      */
+    @SuppressWarnings("unused")
     public void setFilterString(String filterString) {
         String oldValue = getFilterString();
         //  Filter control
@@ -60,6 +64,7 @@ public class DataFiltering extends AbstractBean {
     /**
      * @param showOnlyActiveFilter the showOnlyActiveFilter to set
      */
+    @SuppressWarnings("unused")
     public void setShowOnlyActiveFilter(boolean showOnlyActiveFilter) {
         if (isShowOnlyActiveFilter() == showOnlyActiveFilter) return;
         boolean oldValue = isShowOnlyActiveFilter();
@@ -78,11 +83,12 @@ public class DataFiltering extends AbstractBean {
     /**
      * @param showOnlyInactiveFilter the showOnlyInactiveFilter to set
      */
+    @SuppressWarnings("unused")
     public void setShowOnlyInactiveFilter(boolean showOnlyInactiveFilter) {
         if (isShowOnlyInactiveFilter() == showOnlyInactiveFilter) return;
         boolean oldValue = isShowOnlyInactiveFilter();
         this.showOnlyInactiveFilter = showOnlyInactiveFilter;
-        updateNonActiveFilter();
+        updateinActiveFilter();
         firePropertyChange(FilterTableModel.inactiveFilters_FireProperty, oldValue, isShowOnlyInactiveFilter());
     }
 
@@ -99,8 +105,8 @@ public class DataFiltering extends AbstractBean {
         updateFilters();
     }
 
-    private void updateNonActiveFilter() {
-        activeFilter = showOnlyInactiveFilter ? createNonActiveFilter() : null;
+    private void updateinActiveFilter() {
+        inactiveFilter = showOnlyInactiveFilter ? createInactiveFilter() : null;
         updateFilters();
     }
 
@@ -128,15 +134,6 @@ public class DataFiltering extends AbstractBean {
         } else if ((searchFilter != null) && (activeFilter == null) && (inactiveFilter != null)) {
             List<RowFilter<TableModel, Integer>> filters =
                     new ArrayList<>(2);
-            filters.add(inactiveFilter);
-            filters.add(searchFilter);
-            RowFilter<TableModel, Integer> comboFilter = RowFilter.andFilter(filters);
-            filterTable.setRowFilter(comboFilter);
-
-        } else if ((searchFilter != null) && (activeFilter != null) && (inactiveFilter != null)) {
-            List<RowFilter<TableModel, Integer>> filters =
-                    new ArrayList<>(2);
-            filters.add(activeFilter);
             filters.add(inactiveFilter);
             filters.add(searchFilter);
             RowFilter<TableModel, Integer> comboFilter = RowFilter.andFilter(filters);
@@ -172,7 +169,7 @@ public class DataFiltering extends AbstractBean {
         };
     }
 
-    private RowFilter<TableModel, Integer> createNonActiveFilter() {
+    private RowFilter<TableModel, Integer> createInactiveFilter() {
         return new RowFilter<TableModel, Integer>() {
             @Override
             public boolean include(Entry<? extends TableModel, ? extends Integer> entry) {

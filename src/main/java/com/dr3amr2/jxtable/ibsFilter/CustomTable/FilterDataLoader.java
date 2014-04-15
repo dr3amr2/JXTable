@@ -13,11 +13,13 @@ import java.util.List;
 
 /**
  * Created by dnguyen on 3/27/2014.
+ *
+ * FilterDataLoader fetches the data and loads them into the table model
  */
 public class FilterDataLoader extends SwingWorker<List<FilterModel>, FilterModel> {
     private final URL filterDataURL;
     private final FilterTableModel filterTableModel;
-    private final List<FilterModel> contacts = new ArrayList<FilterModel>();
+    private final List<FilterModel> contacts = new ArrayList<>();
     private final Stacker dataPanel;
     private JLabel credits;
 

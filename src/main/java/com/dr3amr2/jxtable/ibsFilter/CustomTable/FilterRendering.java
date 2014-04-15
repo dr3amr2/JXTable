@@ -78,10 +78,12 @@ public class FilterRendering {
         IconHighlighter activeIconHighlighter = new IconHighlighter(activeFilterIcon);
         ToolTipHighlighter activeFilterToolTip = new ToolTipHighlighter();
         activeFilterToolTip.addStringValue(new ListStringValue(true, "Active Filter", null), FilterTableModel.name_ID);
+
         // Icon and tool tip decorators for nominees
         IconHighlighter nonActiveIconHighlighter = new IconHighlighter(nonActiveFilterIcon);
         ToolTipHighlighter nonActiveFilterToolTip = new ToolTipHighlighter();
         nonActiveFilterToolTip.addStringValue(new ListStringValue(true, "Non-Active Filter", null), FilterTableModel.name_ID);
+
         // the predicate to decide which to use
         HighlightPredicate activeFilterPredicate = new HighlightPredicate() {
 
@@ -99,7 +101,7 @@ public class FilterRendering {
                         nonActiveIconHighlighter, nonActiveFilterToolTip)));
     }
 
-//----------------- not special to OscarRendering, but still missing in SwingX :-)
+//----------------- not special to Rendering, but needed for SwingX
 
 
     /**
@@ -120,8 +122,8 @@ public class FilterRendering {
          */
         public void addStringValue(StringValue sv, Object sourceColumn) {
            if (stringValues == null) {
-               stringValues = new ArrayList<StringValue>();
-               sourceColumns = new ArrayList<Object>();
+               stringValues = new ArrayList<>();
+               sourceColumns = new ArrayList<>();
            }
            stringValues.add(sv);
            sourceColumns.add(sourceColumn);
@@ -132,6 +134,7 @@ public class FilterRendering {
          *
          * @param delimiter the delimiter to use between StringValues, if there are more than one.
          */
+        @SuppressWarnings("unused")
         public void setDelimiter(String delimiter) {
             this.delimiter = delimiter;
         }
@@ -139,7 +142,7 @@ public class FilterRendering {
         @Override
         protected Component doHighlight(Component component,
                 ComponentAdapter adapter) {
-            String toolTip = getToolTipText(component, adapter);
+            String toolTip = getToolTipText(adapter);
             // PENDING: treetableCellRenderer doesn't reset tooltip!
             if (toolTip != null) {
                 ((JComponent) component).setToolTipText(toolTip);
@@ -147,8 +150,7 @@ public class FilterRendering {
             return component;
         }
 
-        private String getToolTipText(Component component,
-                ComponentAdapter adapter) {
+        private String getToolTipText(ComponentAdapter adapter) {
             if ((stringValues == null) || stringValues.isEmpty()) return null;
             String text = "";
             for (int i = 0; i < stringValues.size(); i++) {
@@ -184,6 +186,7 @@ public class FilterRendering {
         String singleToolTipPrefix;
         String multipleToolTipPrefix;
 
+        @SuppressWarnings("unused")
         public ListStringValue() {
             this(false, null, null);
         }

@@ -39,10 +39,10 @@ public class FilterController {
 
     public FilterController() {
         panel = new FilterPanel();
-        registerListener();
         configureTableDisplayProperties();
         bind();
         setTableColumnSequence();
+        registerListener();
         loadExternalData();
     }
 
