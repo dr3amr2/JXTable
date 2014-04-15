@@ -28,8 +28,9 @@ public class FilterTableModel extends AbstractTableModel {
     public static final String filter_ID = "Filter";
     public static final String active_ID = "isActive";
 
-    public static final String activeFilters_FireProperty = "showOnlyActive";
-    public static final String inactiveFilters_FireProperty = "showOnlyInactive";
+    // String must match variable name in DataFiltering class (Binding variables)
+    public static final String activeFilters_FireProperty = "showOnlyActiveFilter";
+    public static final String nonActiveFilters_FireProperty = "showOnlyNonActiveFilter";
     public static final String statusContent_FireProperty = "statusContent";
     public static final String filterString_FireProperty = "filterString";
 

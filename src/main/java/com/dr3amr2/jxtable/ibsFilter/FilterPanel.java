@@ -1,5 +1,7 @@
 package com.dr3amr2.jxtable.ibsFilter;
 
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.*;
 import org.jdesktop.swingx.JXSearchField;
 
 import javax.swing.*;
@@ -11,7 +13,10 @@ import java.awt.*;
 public class FilterPanel extends JPanel {
     public JCheckBox activeFiltersCheckbox;
     public JCheckBox nonActiveFiltersCheckbox;
+    public JComboBox filterOptionComboxBox;
     public JXSearchField filterField;
+    public JRadioButton activeFilterOnlyButton;
+    public JRadioButton nonActiveFilterOnlyButton;
 
 
     public FilterPanel(){
@@ -22,56 +27,44 @@ public class FilterPanel extends JPanel {
     protected void initComponents() {
         setLayout(new BorderLayout());
 
+        filterOptionComboxBox = new JComboBox();
+        filterOptionComboxBox.setModel(new DefaultComboBoxModel(FilterOptions.values()));
+
         JPanel controlPanel = createControlPanel();
         add(controlPanel, BorderLayout.NORTH);
 
     }
 
     protected JPanel createControlPanel() {
-        JPanel controlPanel = new JPanel();
-        GridBagLayout gridbag = new GridBagLayout();
-        GridBagConstraints c = new GridBagConstraints();
-        controlPanel.setLayout(gridbag);
+        JPanel filterOptionPanel = new JPanel();
+        CellConstraints cc = new CellConstraints();
 
-        c.gridx = 0;
-        c.gridy = 1;
-        c.gridheight = 1;
-        c.insets = new Insets(20, 10, 0, 10);
-        c.anchor = GridBagConstraints.SOUTHWEST;
-        JLabel searchLabel = new JLabel();
-        searchLabel.setName("searchLabel");
-        controlPanel.add(searchLabel, c);
-
-        c.gridx = 0;
-        c.gridy = 2;
-        c.weightx = 1.0;
-        c.insets.top = 0;
-        c.insets.bottom = 12;
-        c.anchor = GridBagConstraints.SOUTHWEST;
-        //c.fill = GridBagConstraints.HORIZONTAL;
+        filterOptionPanel.setLayout(new FormLayout(
+                new ColumnSpec[] {
+                        new ColumnSpec(ColumnSpec.FILL, Sizes.dluX(20), FormSpec.DEFAULT_GROW),
+                        FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                        FormFactory.DEFAULT_COLSPEC,
+                        FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                        FormFactory.DEFAULT_COLSPEC
+                },
+                RowSpec.decodeSpecs("default")));
         filterField = new JXSearchField();
-        filterField.setPrompt("  Search Filters");
+        filterField.setPrompt("  Search Filter");
         filterField.setPreferredSize(new Dimension(250, 24));
+        filterOptionPanel.add(filterField, cc.xy(1, 1));
 
-        controlPanel.add(filterField, c);
-
-        c.gridx = 1;
-        c.gridy = 2;
-        c.gridwidth = GridBagConstraints.REMAINDER;
-        //c.insets.right = 24;
-        //c.insets.left = 12;
-        c.weightx = 0.0;
-        c.anchor = GridBagConstraints.EAST;
-        c.fill = GridBagConstraints.NONE;
+        //---- activeFilterOnlyCheckBox ----
         activeFiltersCheckbox = new JCheckBox();
-        activeFiltersCheckbox.setText("Show only active filters");
-        controlPanel.add(activeFiltersCheckbox, c);
+        activeFiltersCheckbox.setText("Active Only");
+        filterOptionPanel.add(activeFiltersCheckbox, cc.xy(3, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
+        //---- nonActiveFilterOnlyCheckBox ----
         nonActiveFiltersCheckbox = new JCheckBox();
-        nonActiveFiltersCheckbox.setText("Show only non-active filters");
-        controlPanel.add(nonActiveFiltersCheckbox, c);
+        nonActiveFiltersCheckbox.setText("Non Active Only");
+        filterOptionPanel.add(nonActiveFiltersCheckbox, cc.xy(5, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
-        return controlPanel;
+
+        return filterOptionPanel;
     }
 
 }

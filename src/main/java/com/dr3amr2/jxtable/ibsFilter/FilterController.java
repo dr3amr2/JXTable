@@ -97,18 +97,37 @@ public class FilterController {
         // bind controller properties to input components
         BindingGroup filterGroup = new BindingGroup();
 
+        // Binding checkbox to the
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
                 panel.activeFiltersCheckbox, BeanProperty.create("selected"),
                 filterTableController, BeanProperty.create(FilterTableModel.activeFilters_FireProperty)));
 
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
+                panel.nonActiveFiltersCheckbox, BeanProperty.create("selected"),
+                filterTableController, BeanProperty.create(FilterTableModel.nonActiveFilters_FireProperty)));
+
+        filterGroup.addBinding(Bindings.createAutoBinding(READ,
                 panel.filterField, BeanProperty.create("text"),
                 filterTableController, BeanProperty.create(FilterTableModel.filterString_FireProperty)));
-        // PENDING JW: crude hack to update the statusbar - fake property
-        // how-to do cleanly?
+
+        filterGroup.addBinding(Bindings.createAutoBinding(READ,
+                panel.filterOptionComboxBox, BeanProperty.create("DISPLAY_ACTIVE_ONLY"),
+                filterTableController, BeanProperty.create(FilterTableModel.activeFilters_FireProperty)));
+
+        filterGroup.addBinding(Bindings.createAutoBinding(READ,
+                panel.filterOptionComboxBox, BeanProperty.create(FilterOptions.DISPLAY_NONACTIVE_ONLY.toString()),
+                filterTableController, BeanProperty.create(FilterTableModel.nonActiveFilters_FireProperty)));
+
+
+        // Binding user inputs to update statusContent (IE update number of available fitlers)
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
                 filterTableController, BeanProperty.create(FilterTableModel.activeFilters_FireProperty),
                 this, BeanProperty.create(FilterTableModel.statusContent_FireProperty)));
+
+        filterGroup.addBinding(Bindings.createAutoBinding(READ,
+                filterTableController, BeanProperty.create(FilterTableModel.nonActiveFilters_FireProperty),
+                this, BeanProperty.create(FilterTableModel.statusContent_FireProperty)));
+
 
         filterGroup.addBinding(Bindings.createAutoBinding(READ,
                 filterTableController, BeanProperty.create(FilterTableModel.filterString_FireProperty),
