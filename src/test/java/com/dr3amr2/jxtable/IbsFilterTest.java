@@ -15,8 +15,6 @@ public class IbsFilterTest {
                 frame.add(filterController.getPanel());
                 frame.setSize(700, 400);
                 frame.setVisible(true);
-
-                filterController.start();
             }
         });
     }

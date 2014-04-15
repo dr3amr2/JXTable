@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 
 public class DataFiltering extends AbstractBean {
     private RowFilter<TableModel, Integer> activeFilter;
-    private RowFilter<TableModel, Integer> nonActiveFilter;
+    private RowFilter<TableModel, Integer> inactiveFilter;
     private RowFilter<TableModel, Integer> searchFilter;
 
     // Binded variables
     private boolean showOnlyActiveFilter = false;
-    private boolean showOnlyNonActiveFilter = false;
+    private boolean showOnlyInactiveFilter = false;
     private String filterString;
 
     private JXTable filterTable;
@@ -76,21 +76,21 @@ public class DataFiltering extends AbstractBean {
     }
 
     /**
-     * @param showOnlyNonActiveFilter the showOnlyNonActiveFilter to set
+     * @param showOnlyInactiveFilter the showOnlyInactiveFilter to set
      */
-    public void setShowOnlyNonActiveFilter(boolean showOnlyNonActiveFilter) {
-        if (isShowOnlyNonActiveFilter() == showOnlyNonActiveFilter) return;
-        boolean oldValue = isShowOnlyNonActiveFilter();
-        this.showOnlyNonActiveFilter = showOnlyNonActiveFilter;
+    public void setShowOnlyInactiveFilter(boolean showOnlyInactiveFilter) {
+        if (isShowOnlyInactiveFilter() == showOnlyInactiveFilter) return;
+        boolean oldValue = isShowOnlyInactiveFilter();
+        this.showOnlyInactiveFilter = showOnlyInactiveFilter;
         updateNonActiveFilter();
-        firePropertyChange(FilterTableModel.nonActiveFilters_FireProperty, oldValue, isShowOnlyNonActiveFilter());
+        firePropertyChange(FilterTableModel.inactiveFilters_FireProperty, oldValue, isShowOnlyInactiveFilter());
     }
 
     /**
      * @return the showOnlyActiveFilter
      */
-    public boolean isShowOnlyNonActiveFilter() {
-        return showOnlyNonActiveFilter;
+    public boolean isShowOnlyInactiveFilter() {
+        return showOnlyInactiveFilter;
     }
 
 
@@ -100,7 +100,7 @@ public class DataFiltering extends AbstractBean {
     }
 
     private void updateNonActiveFilter() {
-        activeFilter = showOnlyNonActiveFilter ? createNonActiveFilter() : null;
+        activeFilter = showOnlyInactiveFilter ? createNonActiveFilter() : null;
         updateFilters();
     }
 
@@ -117,7 +117,7 @@ public class DataFiltering extends AbstractBean {
     private void updateFilters() {
         //  Filter control
         //      set the filters to the table
-        if ((searchFilter != null) && (activeFilter != null) && (nonActiveFilter == null)) {
+        if ((searchFilter != null) && (activeFilter != null) && (inactiveFilter == null)) {
             List<RowFilter<TableModel, Integer>> filters =
                     new ArrayList<>(2);
             filters.add(activeFilter);
@@ -125,19 +125,19 @@ public class DataFiltering extends AbstractBean {
             RowFilter<TableModel, Integer> comboFilter = RowFilter.andFilter(filters);
             filterTable.setRowFilter(comboFilter);
 
-        } else if ((searchFilter != null) && (activeFilter == null) && (nonActiveFilter != null)) {
+        } else if ((searchFilter != null) && (activeFilter == null) && (inactiveFilter != null)) {
             List<RowFilter<TableModel, Integer>> filters =
                     new ArrayList<>(2);
-            filters.add(nonActiveFilter);
+            filters.add(inactiveFilter);
             filters.add(searchFilter);
             RowFilter<TableModel, Integer> comboFilter = RowFilter.andFilter(filters);
             filterTable.setRowFilter(comboFilter);
 
-        } else if ((searchFilter != null) && (activeFilter != null) && (nonActiveFilter != null)) {
+        } else if ((searchFilter != null) && (activeFilter != null) && (inactiveFilter != null)) {
             List<RowFilter<TableModel, Integer>> filters =
                     new ArrayList<>(2);
             filters.add(activeFilter);
-            filters.add(nonActiveFilter);
+            filters.add(inactiveFilter);
             filters.add(searchFilter);
             RowFilter<TableModel, Integer> comboFilter = RowFilter.andFilter(filters);
             filterTable.setRowFilter(comboFilter);
@@ -147,8 +147,8 @@ public class DataFiltering extends AbstractBean {
                 filterTable.setRowFilter(searchFilter);
             } else if (activeFilter != null) {
                 filterTable.setRowFilter(activeFilter);
-            } else if (nonActiveFilter != null){
-                filterTable.setRowFilter(nonActiveFilter);
+            } else if (inactiveFilter != null){
+                filterTable.setRowFilter(inactiveFilter);
             } else {
                 filterTable.setRowFilter(searchFilter);
             }

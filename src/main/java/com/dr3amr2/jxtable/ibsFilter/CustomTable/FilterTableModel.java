@@ -30,7 +30,7 @@ public class FilterTableModel extends AbstractTableModel {
 
     // String must match variable name in DataFiltering class (Binding variables)
     public static final String activeFilters_FireProperty = "showOnlyActiveFilter";
-    public static final String nonActiveFilters_FireProperty = "showOnlyNonActiveFilter";
+    public static final String inactiveFilters_FireProperty = "showOnlyInactiveFilter";
     public static final String statusContent_FireProperty = "statusContent";
     public static final String filterString_FireProperty = "filterString";
 
